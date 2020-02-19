@@ -1,0 +1,191 @@
+	function public:check_self_orders_in_crude_dic()
+		local _is_active = private_func.IsActivePosition({mes="check_self_orders_in_crude_dic()"})		
+		if _is_active.result == false then return _is_active end
+
+		local crude_dic_table = private_func.IsTable({table=self.crude_dictionary_orders, mes="check_self_orders_in_crude_dic(): Crude Table"})
+		local execu_dic_table = private_func.IsTable({table=self.executed_dictionary_orders, mes="check_self_orders_in_crude_dic(): Executed Table"})	
+				
+		if crude_dic_table.result == false then return crude_dic_table end
+		if execu_dic_table.result == false then return execu_dic_table end		
+		if self.kind == nil or (self.kind ~= 'open' and self.kind ~= 'close') then return private_func.IsNotValidate({mes="Can't check crude orders, because no self.kind='open' or self.kind='close'"}) end
+		
+		local list_to_delete = {}
+
+		local _key = nil
+		
+		if self.kind == 'open' then
+			_key = private.id_position					
+		elseif self.kind == 'close' then
+			_key = private.id_position_to_close
+		end
+		
+		for key, value in pairs(self.crude_dictionary_orders) do
+			local _order_num = nil
+			if (value.ordernum ~= nil and value.ordernum ~= 0) then
+				_order_num = value.ordernum
+			elseif (value.order_num ~= nil and value.order_num ~= 0) then
+				_order_num = value.order_num
+			end
+			
+			if (_order_num ~= nil) then
+				--message("tostring(value.brokerref): "..tostring(value.brokerref).."_key: "..tostring(_key))
+				if (tostring(value.brokerref) == _key)then
+				--find self order reply
+					--1)Adding name order to list for delete
+					list_to_delete[key] = key
+					--2)Adding name order to list executed orders of transaction manager
+					self.executed_dictionary_orders[key] = value					
+
+					if (self.kind == 'open' and private.list_reply_of_orders[tostring(_order_num)] == nil) then
+						message("Write new order to open dic "..tostring(_order_num).."_key: "..tostring(_key))
+						private.list_reply_of_orders[tostring(_order_num)] = value					
+					elseif (self.kind == 'close' and private.list_reply_of_orders_to_close[tostring(_order_num)] == nil) then
+						private.list_reply_of_orders_to_close[tostring(_order_num)] = value
+					end
+					
+					if (bit.band(value.flags, 2) > 0) then
+						--если заявка снята кем-то
+						if self.kind == 'open' then						
+							private.list_reply_of_orders[tostring(_order_num)] = value
+						elseif self.kind == 'close' then						
+							private.list_reply_of_orders_to_close[tostring(_order_num)] = value
+						end
+					elseif(bit.band(value.flags, 1) == 0 and bit.band(value.flags, 2) == 0) then
+						--если ордер исполнен
+						if self.kind == 'open' then						
+							private.list_reply_of_orders[tostring(_order_num)] = value
+						elseif self.kind == 'close' then						
+							private.list_reply_of_orders_to_close[tostring(_order_num)] = value
+						end
+					end					
+					
+				else
+					message("ERROR".."value.brokerref: NOTHING"..tostring(value.brokerref).."\n_key: "..tostring(_key).."\n")
+				end	
+
+			else 
+				message("ERROR _order_num = null")
+			end
+		end
+		
+		--clear dictionary of crude if it was moved to executed dictionary
+		for key, value in pairs(list_to_delete) do
+			self.crude_dictionary_orders[value] = nil
+		end
+	end	
+	
+	
+	
+	
+			
+	function public:check_self_deals_in_crude_dic() -- format {crude_dictionary_deals = table, executed_dictionary_deals = table, kind = "open"}
+		--take crude dictionary of deals and check it for self deals
+		--if it contains self deals, then it take to self deals dictionary and delete it from 		
+		--transmanager deals dictionary
+		--take two tables crude and executed dictionary {crude_dictionary_deals = table, executed_dictionary_deals = table, kind = "open"}
+		--this function check flags of order and if it active put it to active orders
+		local _is_active = private_func.IsActivePosition({mes="check_self_deals_in_crude_dic()"})		
+		if _is_active.result == false then return _is_active end		
+		
+		local crude_dic_table = private_func.IsTable({table=self.crude_dictionary_deals, mes="check_self_deals_in_crude_dic(): Crude Table"})
+		local execu_dic_table = private_func.IsTable({table=self.executed_dictionary_deals, mes="check_self_deals_in_crude_dic(): Executed Table"})	
+
+		if crude_dic_table.result == false then return crude_dic_table end
+		if execu_dic_table.result == false then return execu_dic_table end	
+		if self.kind == nil or (self.kind ~= 'open' and self.kind ~= 'close') then return private_func.IsNotValidate({mes="Can't check crude deals, because no self.kind='open' or self.kind='close'"}) end
+
+		local list_to_delete = {}
+		
+		local _key = nil		
+		local _list = {}
+		
+		if self.kind == 'open' then
+			_key = private.id_position
+			public.copy_dictionary_value({from_dic=private.list_reply_of_deals, to_dic=_list}) --format 
+		elseif self.kind == 'close' then
+			_key = private.id_position_to_close
+		end
+		
+		for key, value in pairs(self.crude_dictionary_deals) do			
+		
+			if (tostring(value.brokerref) == _key)then
+				local not_finded_deal = true
+				if self.kind == 'open' then
+					for inner_key, inner_value in pairs(private.list_reply_of_deals) do
+							local v_tradenum = tonumber(value.tradenum)
+							local v_trade_num = tonumber(value.trade_num)					
+							local v2_tradenum = tonumber(inner_value.tradenum)
+							local v2_trade_num = tonumber(inner_value.trade_num)
+							
+							if (v_tradenum == nil or v_trade_num == nil or v2_tradenum == nil or v2_trade_num == nil) then
+								message("v_tradenum is nil")
+							end
+							
+							if (v_tradenum ~= nil and v2_tradenum ~= nil and v2_tradenum == v_tradenum and v2_tradenum ~= 0 and v_tradenum ~= 0) or
+								(v_trade_num ~= nil and v2_trade_num ~= nil and v2_trade_num == v_trade_num and v2_trade_num ~= 0 and v_trade_num ~= 0) then
+								--if find order in crude dictionary and it in deals already saved then remove this deals from crude 
+								--dictionary to executed without adding to self dictionary of deals
+							
+								--adding to executed dealss of transmanager
+								self.executed_dictionary_deals[key] = value
+							
+								--delete from crude dictionary deals of trans manager
+								list_to_delete[key] = key
+								not_finded_deal = false
+							end								
+					end
+				elseif self.kind == 'close' then
+					for inner_key, inner_value in pairs(private.list_reply_of_deals_to_close) do
+							local v_tradenum = tonumber(value.tradenum)
+							local v_trade_num = tonumber(value.trade_num)					
+							local v2_tradenum = tonumber(inner_value.tradenum)
+							local v2_trade_num = tonumber(inner_value.trade_num)
+							
+							if (v_tradenum == nil or v_trade_num == nil or v2_tradenum == nil or v2_trade_num == nil) then
+								message("v_tradenum is nil")
+							end
+							
+							if (v_tradenum ~= nil and v2_tradenum ~= nil and v2_tradenum == v_tradenum and v2_tradenum ~= 0 and v_tradenum ~= 0) or
+								(v_trade_num ~= nil and v2_trade_num ~= nil and v2_trade_num == v_trade_num and v2_trade_num ~= 0 and v_trade_num ~= 0) then
+								--if find order in crude dictionary and it in deals already saved then remove this deals from crude 
+								--dictionary to executed without adding to self dictionary of deals
+							
+								--adding to executed dealss of transmanager
+								self.executed_dictionary_deals[key] = value
+							
+								--delete from crude dictionary deals of trans manager
+								list_to_delete[key] = key
+								not_finded_deal = false
+							end								
+					end				
+				
+				end
+				--if private dictionary of deals not contains this deal write it to self list of deals
+				if not_finded_deal == true then 
+					
+					if self.kind == 'open' then
+						private.list_reply_of_deals[key] = value 
+					elseif self.kind == 'close' then
+						private.list_reply_of_deals_to_close[key] = value 
+					end
+											
+				end	
+			end
+		end				
+		--clear dictionary of crude if it was moved to executed dictionary
+		for key, value in pairs(list_to_delete) do
+			self.crude_dictionary_deals[value] = nil		
+		end	
+		
+		--count life time of position if was sended open transaction and it is alive
+		if (private.transaction_sended_open == true and private.open_side_is_active == true) then
+			private.life_time_open = private.life_time_open + 1
+		end
+		
+		--count life time of position if was sended close transaction and it is alive
+		if (private.transaction_sended_close == true and private.close_side_is_active == true) then
+			private.life_time_close = private.life_time_close + 1
+		end
+		
+		return private_func.IsValidate({mes="Success check_self_deals_in_crude_dic"})		
+	end
