@@ -1,0 +1,309 @@
+26.02.2020  11:33:48: ___ Writer activated;
+26.02.2020  11:34:01: ___ Now signal bar And LONG situation
+;
+26.02.2020  11:34:01: ___ Long_ONE position not in active dictionary. Set it. Set new last_min
+;
+26.02.2020  11:34:01: ___ Create Long ONE position N: 1100129
+;
+26.02.2020  11:34:01: ___ Long ONE Enter price = 65631; Stop = 65590; ; Take = 65691;
+;
+26.02.2020  11:34:01: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+26.02.2020  11:34:01: ___ Create Long TWO position N: 1356369
+;
+26.02.2020  11:34:01: ___ Long TWO Enter price = 65631; Stop = 65590; ; Take = 65776;
+;
+
+------------------------------------------------------------------------
+;
+26.02.2020  11:39:24: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:24: ___ position is not active 
+;
+26.02.2020  11:39:24: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:24: ___ position is not active 
+;
+26.02.2020  11:39:24: ___ Delete position from active dictionary position: long_position_one
+;
+26.02.2020  11:39:24: ___ Delete position from active dictionary position: long_position_145
+;
+26.02.2020  11:39:24: ___ Now signal bar And SHORT situation
+;
+26.02.2020  11:39:24: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+26.02.2020  11:39:24: ___ Create Short position N: 1119339
+;
+26.02.2020  11:39:24: ___ Short Enter price = 65619; Stop = 65670; ; Take = 65559;
+;
+26.02.2020  11:39:24: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+26.02.2020  11:39:24: ___ Create Long TWO 145 position N: 1380889
+;
+26.02.2020  11:39:24: ___ Long TWO 145 Enter price = 65619; Stop = 65670; ; Take = 65474;
+;
+26.02.2020  11:39:24: ___ ...
+;
+26.02.2020  11:39:24: ___ ...
+;
+26.02.2020  11:39:27: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:27: ___ position is Active 
+;
+26.02.2020  11:39:27: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:27: ___ position is Active 
+;
+26.02.2020  11:39:27: ___ Now signal bar And SHORT situation
+;
+26.02.2020  11:39:27: ___ ...
+;
+26.02.2020  11:39:27: ___ ...
+;
+26.02.2020  11:39:30: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:30: ___ position is Active 
+;
+26.02.2020  11:39:30: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:30: ___ position is Active 
+;
+26.02.2020  11:39:30: ___ Now signal bar And SHORT situation
+;
+26.02.2020  11:39:30: ___ ...
+;
+26.02.2020  11:39:30: ___ ...
+;
+26.02.2020  11:39:31: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:31: ___ position is Active 
+;
+26.02.2020  11:39:31: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:31: ___ position is Active 
+;
+26.02.2020  11:39:31: ___ Now signal bar And SHORT situation
+;
+26.02.2020  11:39:31: ___ ...
+;
+26.02.2020  11:39:31: ___ ...
+;
+26.02.2020  11:39:33: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:33: ___ position is Active 
+;
+26.02.2020  11:39:33: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:33: ___ position is Active 
+;
+26.02.2020  11:39:33: ___ Now signal bar And SHORT situation
+;
+26.02.2020  11:39:33: ___ ...
+;
+26.02.2020  11:39:33: ___ ...
+;
+26.02.2020  11:39:35: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:35: ___ position is Active 
+;
+26.02.2020  11:39:35: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:35: ___ position is Active 
+;
+26.02.2020  11:39:35: ___ Now signal bar And SHORT situation
+;
+26.02.2020  11:39:35: ___ ...
+;
+26.02.2020  11:39:35: ___ ...
+;
+26.02.2020  11:39:37: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:37: ___ position is Active 
+;
+26.02.2020  11:39:37: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:37: ___ position is Active 
+;
+26.02.2020  11:39:37: ___ Now signal bar And SHORT situation
+;
+26.02.2020  11:39:37: ___ ...
+;
+26.02.2020  11:39:37: ___ ...
+;
+26.02.2020  11:39:39: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:39: ___ position is Active 
+;
+26.02.2020  11:39:39: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:39: ___ position is Active 
+;
+26.02.2020  11:39:39: ___ Now signal bar And SHORT situation
+;
+26.02.2020  11:39:39: ___ ...
+;
+26.02.2020  11:39:39: ___ ...
+;
+26.02.2020  11:39:41: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:41: ___ position is Active 
+;
+26.02.2020  11:39:41: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:41: ___ position is Active 
+;
+26.02.2020  11:39:41: ___ Now signal bar And SHORT situation
+;
+26.02.2020  11:39:41: ___ ...
+;
+26.02.2020  11:39:41: ___ ...
+;
+26.02.2020  11:39:43: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:43: ___ position is Active 
+;
+26.02.2020  11:39:43: ___ position is Short, but market is long 
+;
+26.02.2020  11:39:43: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:43: ___ position is Active 
+;
+26.02.2020  11:39:43: ___ position is Short, but market is long 
+;
+26.02.2020  11:39:43: ___ Make new stop: 65595.70102235
+;
+26.02.2020  11:39:43: ___ Make new stop: 65595.70102235
+;
+26.02.2020  11:39:43: ___ ...
+;
+26.02.2020  11:39:43: ___ ...
+;
+26.02.2020  11:39:45: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:45: ___ position is Active 
+;
+26.02.2020  11:39:45: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:45: ___ position is Active 
+;
+26.02.2020  11:39:45: ___ Now signal bar And SHORT situation
+;
+26.02.2020  11:39:45: ___ ...
+;
+26.02.2020  11:39:45: ___ ...
+;
+26.02.2020  11:39:47: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:47: ___ position is Active 
+;
+26.02.2020  11:39:47: ___ position is Short, but market is long 
+;
+26.02.2020  11:39:47: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:47: ___ position is Active 
+;
+26.02.2020  11:39:47: ___ position is Short, but market is long 
+;
+26.02.2020  11:39:47: ___ Make new stop: 65595.70102235
+;
+26.02.2020  11:39:47: ___ Make new stop: 65595.70102235
+;
+26.02.2020  11:39:47: ___ ...
+;
+26.02.2020  11:39:47: ___ ...
+;
+26.02.2020  11:39:50: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:50: ___ position is not active 
+;
+26.02.2020  11:39:50: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:50: ___ position is not active 
+;
+26.02.2020  11:39:50: ___ Delete position from active dictionary position: short_position_one
+;
+26.02.2020  11:39:50: ___ Delete position from active dictionary position: short_position_145
+;
+26.02.2020  11:39:52: ___ Now signal bar And SHORT situation
+;
+26.02.2020  11:39:52: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+26.02.2020  11:39:52: ___ Create Short position N: 1158509
+;
+26.02.2020  11:39:52: ___ Short Enter price = 65633; Stop = 65670; ; Take = 65573;
+;
+26.02.2020  11:39:52: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+26.02.2020  11:39:52: ___ Create Long TWO 145 position N: 1347999
+;
+26.02.2020  11:39:52: ___ Long TWO 145 Enter price = 65633; Stop = 65670; ; Take = 65488;
+;
+26.02.2020  11:39:52: ___ ...
+;
+26.02.2020  11:39:52: ___ ...
+;
+26.02.2020  11:39:54: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:54: ___ position is Active 
+;
+26.02.2020  11:39:54: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:54: ___ position is Active 
+;
+26.02.2020  11:39:54: ___ Now signal bar And SHORT situation
+;
+26.02.2020  11:39:54: ___ ...
+;
+26.02.2020  11:39:54: ___ ...
+;
+26.02.2020  11:39:56: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:56: ___ position is Active 
+;
+26.02.2020  11:39:56: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:56: ___ position is Active 
+;
+26.02.2020  11:39:56: ___ Now signal bar And SHORT situation
+;
+26.02.2020  11:39:56: ___ ...
+;
+26.02.2020  11:39:56: ___ ...
+;
+26.02.2020  11:39:59: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:59: ___ position is Active 
+;
+26.02.2020  11:39:59: ___ position is Short, but market is long 
+;
+26.02.2020  11:39:59: ___ We have position in active dictionary 
+;
+26.02.2020  11:39:59: ___ position is Active 
+;
+26.02.2020  11:39:59: ___ position is Short, but market is long 
+;
+26.02.2020  11:39:59: ___ Make new stop: 65595.70102235
+;
+26.02.2020  11:39:59: ___ Make new stop: 65595.70102235
+;
+26.02.2020  11:39:59: ___ ...
+;
+26.02.2020  11:39:59: ___ ...
+;
+26.02.2020  11:40:00: ___ We have position in active dictionary 
+;
+26.02.2020  11:40:00: ___ position is Active 
+;
+26.02.2020  11:40:00: ___ We have position in active dictionary 
+;
+26.02.2020  11:40:00: ___ position is Active 
+;
+26.02.2020  11:40:00: ___ Make new stop: 65669
+;
+26.02.2020  11:40:00: ___ Make new stop: 65669
+;
+26.02.2020  11:40:00: ___ ...
+;
+26.02.2020  11:40:00: ___ ...
+;
+26.02.2020  11:40:02: ___ Robot stoped!;

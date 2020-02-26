@@ -57,7 +57,7 @@ function OnInit()
 										})	
 										
 	MainStrategy.set_transaction_manager(MainTransManager)
-	--MainStrategy.strategy_start()								
+	MainStrategy.strategy_start()								
 	MainTransManager.activateTransManager()
 										
 end;

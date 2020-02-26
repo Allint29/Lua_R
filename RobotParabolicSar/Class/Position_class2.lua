@@ -271,12 +271,12 @@ function Position:new(positionTable)
 		
 		--make absolute count of stop and take
 		if (string.lower(private.side) == "b") then
-			private.stop_loss_absolute = private_func.RoundToSecurityStep(private.enter_price - private.stop_loss)
-			private.take_profit_absolute = private_func.RoundToSecurityStep(private.enter_price + private.take_profit)
+			private.stop_loss_absolute = private_func.RoundToSecurityStep(private.enter_price - (private.stop_loss * step))
+			private.take_profit_absolute = private_func.RoundToSecurityStep(private.enter_price + (private.take_profit * step))
 		
 		elseif (string.lower(private.side) == "s") then
-			private.stop_loss_absolute = private_func.RoundToSecurityStep(private.enter_price + private.stop_loss)
-			private.take_profit_absolute = private_func.RoundToSecurityStep(private.enter_price - private.take_profit)
+			private.stop_loss_absolute = private_func.RoundToSecurityStep(private.enter_price + (private.stop_loss * step))
+			private.take_profit_absolute = private_func.RoundToSecurityStep(private.enter_price - (private.take_profit * step))
 		else
 			message("check_stop_take_by_limits(): ERRORside not S or not B")
 		end
@@ -706,14 +706,16 @@ function Position:new(positionTable)
 			
 			--_price = tostring(private.enter_price)
 			local last = tonumber(getParamEx(private.class, private.security, "LAST").param_value)
+			local step = private.security_info.min_price_step
+			
 			if private.side == "B" then
 				--_price = tostring( last + private_func.RoundToSecurityStep(private.slippage*step))
 				--_price = tostring( last + private.slippage)
-				_price = tostring( last - private.price_offset)
+				_price = tostring( private_func.RoundToSecurityStep(last - (private.price_offset * step)))
 			elseif private.side == "S" then
 				--_price = tostring( last - private_func.RoundToSecurityStep(private.slippage*step))
 				--_price = tostring( last - private.slippage)
-				_price = tostring( last + private.price_offset)
+				_price = tostring( private_func.RoundToSecurityStep(last + (private.price_offset * step)))
 			end				
 			
 			
@@ -730,11 +732,11 @@ function Position:new(positionTable)
 			if private_func.ReverseSidePosition() == "B" then
 				--_price = tostring( last + private_func.RoundToSecurityStep(private.slippage*step))
 				--_price = tostring( last + private.slippage)
-				_price = tostring( last - private.price_offset)
+				_price = tostring( private_func.RoundToSecurityStep(last - (private.price_offset * step)))
 			elseif private_func.ReverseSidePosition() == "S" then
 				--_price = tostring( last - private_func.RoundToSecurityStep(private.slippage*step))
 				--_price = tostring( last - private.slippage)
-				_price = tostring( last + private.price_offset)
+				_price = tostring( private_func.RoundToSecurityStep(last + (private.price_offset * step)))
 			end			
 			_lot = tostring(private_func.get_current_lot_of_position_open()-private_func.get_current_lot_of_position_close())
 			_id_pos = private.id_position_to_close
@@ -1090,7 +1092,7 @@ function Position:new(positionTable)
 		}	
 	end
 	
-	function public:close_position()	
+	function public:close_position()
 		local _is_active = private_func.IsActivePosition({mes="deactivate_close_step()"})		
 		if _is_active.result == false then return _is_active end
 		
@@ -1124,10 +1126,10 @@ function Position:new(positionTable)
 		local _is_active = private_func.IsActivePosition({mes="main_loop_position()"})		
 		if _is_active.result == false then return _is_active end
 
-		MainWriter.WriteToEndOfFile({mes="\nCome to: public:main_loop_position()\n_____\n"})
+		--MainWriter.WriteToEndOfFile({mes="\nCome to: public:main_loop_position()\n_____\n"})
 		if (private.flag_turn_off == true) then
 			--нужно принудительно закрыть позицию
-			MainWriter.WriteToEndOfFile({mes="Come to: if (private.flag_turn_off == true)\n"})
+			--MainWriter.WriteToEndOfFile({mes="Come to: if (private.flag_turn_off == true)\n"})
 			private.was_started_closed_position = true
 			return public.close_position()
 		end
@@ -1135,7 +1137,7 @@ function Position:new(positionTable)
 		
 		if (string.lower(private.use_stop) == 'true') then
 			--проверяюдостигли стопа или нет
-			MainWriter.WriteToEndOfFile({mes="Come to: if (private.use_stop == true)\n"})
+			--MainWriter.WriteToEndOfFile({mes="Come to: if (private.use_stop == true)\n"})
 			local _last = tonumber(getParamEx(private.class, private.security, "LAST").param_value)
 			if (string.lower(private.side) == "b" and _last <= private.stop_loss_absolute) or				
 			(string.lower(private.side) == "s" and _last >= private.stop_loss_absolute) then
@@ -1149,12 +1151,12 @@ function Position:new(positionTable)
 
 		if (string.lower(private.use_take) == 'true') then
 			--проверяю достигли тейка или нет
-			MainWriter.WriteToEndOfFile({mes="Come to: if (private.use_take == true)\n"})
+			--MainWriter.WriteToEndOfFile({mes="Come to: if (private.use_take == true)\n"})
 			local _last = tonumber(getParamEx(private.class, private.security, "LAST").param_value)
 			if (string.lower(private.side) == "b" and _last >= private.take_profit_absolute) or				
 			(string.lower(private.side) == "s" and _last <= private.take_profit_absolute) then
 				--включаю принудительное закрытие позиции
-				MainWriter.WriteToEndOfFile({mes="Come to: block take takeprofit\n"})
+				--MainWriter.WriteToEndOfFile({mes="Come to: block take takeprofit\n"})
 				private.flag_turn_off = true
 				private.was_started_closed_position = true
 				return public.close_position()					
@@ -1163,13 +1165,13 @@ function Position:new(positionTable)
 		
 		if (private.was_started_closed_position == false) then
 			--если позиция не набрана в полном объеме
-			MainWriter.WriteToEndOfFile({mes="Come to: if (private.was_started_closed_position == false)\n"})
+			--MainWriter.WriteToEndOfFile({mes="Come to: if (private.was_started_closed_position == false)\n"})
 			return public.take_best_position()
 		end
 		--если пришло сюда значит позиция на пути к стопу или тейку или ждет сигнал на закрытие
 		local _result = true
 		local _mes = "Main_loop of position continue..."
-		MainWriter.WriteToEndOfFile({mes="Exit from: public:main_loop_position(). Main_loop of position continue...\n"})
+		--MainWriter.WriteToEndOfFile({mes="Exit from: public:main_loop_position(). Main_loop of position continue...\n"})
 		return {
 				result = _result,
 				mes = _mes,
@@ -1214,6 +1216,14 @@ function Position:new(positionTable)
 	function public:get_enter_price()
 		return private.enter_price
 	end
+	
+	function public:get_stoploss_price()
+		return private.stop_loss_absolute
+	end	
+	
+	function public:get_takeprofit_price()
+		return private.take_profit_absolute
+	end		
 	
 	function public:get_slippage()
 		return private.slippage
@@ -1365,18 +1375,25 @@ function Position:new(positionTable)
 			message ("Can't init new stop because: \nlocal stop = tonumber(self); (stop==nil)")
 			return 
 		end
-
+		
+		if (private.side == "B") then
+			private.stop_loss_absolute = private_func.RoundToSecurityStep(stop - step)
+		elseif (private.side == "S") then
+			private.stop_loss_absolute = private_func.RoundToSecurityStep(stop + step)
+		end		
+		
 		--если стоп меньше минимальной планки или больше максимальной делаем его на обин шаг выше или ниже соответственно
-		if (stop < min_planc) then
-			private.stop_loss_absolute = private_func.RoundToSecurityStep(min_planc + step)			
-		elseif (stop > max_planc) then
-			private.stop_loss_absolute = private_func.RoundToSecurityStep(max_planc - step)
-		end	
+		if (private.stop_loss_absolute < min_planc) then
+			private.stop_loss_absolute = private_func.RoundToSecurityStep(min_planc + (2 * step))			
+		elseif (private.stop_loss_absolute > max_planc) then
+			private.stop_loss_absolute = private_func.RoundToSecurityStep(max_planc - (2 * step))			
+		end 
+		
 		--устанавливаю вновь полученное значение стопа в шагах цены - чтобы синхронизировать 
 		if (private.side == "B") then
-			private.stop_loss = math.floor((enter_price - private.stop_loss_absolute)/step)
+			private.stop_loss = math.floor((private.enter_price - private.stop_loss_absolute)/step)
 		elseif (private.side == "S") then
-			private.stop_loss = math.floor((enter_price + private.stop_loss_absolute)/step)
+			private.stop_loss = math.floor((private.enter_price + private.stop_loss_absolute)/step)
 		end		
 	end
 
@@ -1390,18 +1407,20 @@ function Position:new(positionTable)
 			message ("Can't init new take because: \nlocal take = tonumber(self); (take==nil)")
 			return 
 		end
-
+		
+		private.take_profit_absolute = private_func.RoundToSecurityStep(take)
+		
 		--если стоп меньше минимальной планки или больше максимальной делаем его на обин шаг выше или ниже соответственно
-		if (take < min_planc) then
+		if (private.take_profit_absolute < min_planc) then
 			private.take_profit_absolute = private_func.RoundToSecurityStep(min_planc + step)			
-		elseif (take > max_planc) then
+		elseif (private.take_profit_absolute > max_planc) then
 			private.take_profit_absolute = private_func.RoundToSecurityStep(max_planc - step)
 		end	
 		--устанавливаю вновь полученное значение take в шагах цены - чтобы синхронизировать 
 		if (private.side == "B") then
-			private.stop_loss = math.floor((enter_price + private.stop_loss_absolute)/step)
+			private.stop_loss = math.floor((private.enter_price + private.stop_loss_absolute)/step)
 		elseif (private.side == "S") then
-			private.stop_loss = math.floor((enter_price - private.stop_loss_absolute)/step)
+			private.stop_loss = math.floor((private.enter_price - private.stop_loss_absolute)/step)
 		end		
 	end
 
