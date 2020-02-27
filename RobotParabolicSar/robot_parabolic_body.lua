@@ -30,10 +30,7 @@ function Body()
 	
 	local check_market = MainStrategy.check_market()
 	
-	MainWriter.WriteToConsole({mes="market_side", column=7, row=1})
-	MainWriter.WriteToConsole({mes=check_market.mes, column=7, row=2})
-	MainWriter.WriteToConsole({mes="signal bar", column=8, row=1})
-	MainWriter.WriteToConsole({mes=check_market.mes, column=8, row=2})
+
 			
 	--checking data of dictionaries for clean deals, orders, and transactions if it time is over
 	MainTransManager.major_checking_for_clean({server_time=_server_time})
@@ -46,7 +43,8 @@ function Body()
 	-------------------------------
 	
 	--if push on stop - stopping robot
-	is_run = TableSar.actionOnTable()
+		
+	--is_run = TableSar.actionOnTable()
 
 	sleep(2000)
 end;

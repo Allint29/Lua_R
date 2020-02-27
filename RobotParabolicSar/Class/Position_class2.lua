@@ -1424,6 +1424,10 @@ function Position:new(positionTable)
 		end		
 	end
 
+	function public:get_delta_lot_of_position()
+	--return actual information about open count lots
+		return private_func.get_current_lot_of_position_open() - private_func.get_current_lot_of_position_close()
+	end
 	
 	function public:get_info_dic_positions()
 		return 

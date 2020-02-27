@@ -43,8 +43,11 @@ function OnInit()
 	TableSar.initColumnTable({"Parametrs", "Values", "Comments"})
 	TableSar.putMainData({"qwerty", "second"})
 	
+	--set main writer to robot
     MainWriter = WriterRobot:new("Writer1","Writer1", "SecondLog.txt", TableSar)
+	--set second writer to robot
 	Writer_second = WriterRobot:new("Writer2","Writer2", "ThirdLog.txt", TableSar)
+	
 	MainWriter.WriteToEndOfFile({mes="Writer activated"})
 	MainWriter.WriteToConsole({mes="Writer activated", column=6, row=2})
 	
@@ -57,6 +60,8 @@ function OnInit()
 										})	
 										
 	MainStrategy.set_transaction_manager(MainTransManager)
+	MainStrategy.set_table_manager(TableSar)
+	MainStrategy.set_main_writer(MainWriter)
 	MainStrategy.strategy_start()								
 	MainTransManager.activateTransManager()
 										

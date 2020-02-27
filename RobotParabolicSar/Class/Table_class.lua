@@ -8,7 +8,7 @@ function RobotTable:new(sIdTable, sName, nRow)
 		private.name = sName or "New table"
 		private.countColumns = nColumn or 1
 		private.countRows = nRow or 1
-		private.allocTable = nil		
+		private.allocTable = nil
 		private.listColumns = {}
 		--Property Stop of Main Cicle Script
 		private.workingMainLoop = true
@@ -150,11 +150,27 @@ function RobotTable:new(sIdTable, sName, nRow)
 		local _mes = getInfoParam("TRADEDATE").." "..getInfoParam("SERVERTIME").."; Message: "	
 		return _mes..tostring(self)
 	end
-						
-	local func_on_cell = function(tableID, msg, X, Y)
+	
+	--переменная работы робота
+	private.stopMainLoop = true
+	--переменные управления
+	private.test_message = "Robot is working!"
+	
+	--press 13 row cell1
+	private.cell_13_press = false	
+	function public:get_13_cell()
+		return private.cell_13_press
+	end
+	function public:turn_off_13_cell()
+		private.cell_13_press = false
+	end
+	
+	private.func_on_cell = function(table_id2, msg, X, Y)
 	--callback function of this class for bells about push button
+	
 		if(msg == QTABLE_LBUTTONDBLCLK)then
 			local _mes = ""
+			--message("N: "..tostring(private.allocTable))
 			if (X==5 and Y==1)then
 				_mes = private.funcAddMessage("Robot is working!")
 				message(_mes, 1)
@@ -165,13 +181,17 @@ function RobotTable:new(sIdTable, sName, nRow)
 				message(_mes, 1)
 				private.messages[#private.messages+1] = _mes
 				private.stopMainLoop = false
+			elseif(X==13 and Y==1)then				
+			--button of stop
+				private.cell_13_press = true
 			end			
-		end					
+		end	
+		
 	end
 	
 	function public:actionOnTable()	
 	--actions with cells of table
-		SetTableNotificationCallback(private.allocTable, func_on_cell)
+		SetTableNotificationCallback(private.allocTable, private.func_on_cell)
 		--if push button to stop robot? script is stoping
 		if (private.stopMainLoop == false) then
 			return false
@@ -193,6 +213,7 @@ function RobotTable:new(sIdTable, sName, nRow)
 			public.putMainData({})
 		end	
 	end
+	
 
     setmetatable(public,self)
     self.__index = self; return public

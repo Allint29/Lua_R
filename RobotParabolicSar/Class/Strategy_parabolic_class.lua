@@ -44,10 +44,12 @@ function Startegy_parabolic:new(strategyTable)
 	private.market_type = "reverse" -- may be "long","short", "reverse"
 	private.transaction_manager = strategyTable.transaction_manager or ""
 	
-	private.dictionary_of_names_positions = {}
-		
-	private.number_position = 1
-	private.name_position = tostring(private.number_position).."_"..private.id_strategy
+	--table ob visualization of data - it need that have a access to table button
+	private.strategy_table = strategyTable.strategy_table or ""
+	
+	--table of writer to file to console
+	private.main_writer = strategyTable.main_writer or ""
+	
 	
 	--
 	private.active_positions = {}
@@ -166,14 +168,14 @@ function Startegy_parabolic:new(strategyTable)
 	end
 	
 	function private_func:TableCount()-- format {dictionary=dictionary}
-		--MainWriter.WriteToEndOfFile({mes="dictionary: "..tostring(self.dictionary).."\n"})
+		--private.main_writer.WriteToEndOfFile({mes="dictionary: "..tostring(self.dictionary).."\n"})
 		if (string.lower(type(self)) ~= string.lower("table") )then return 0 end
 		--if (string.lower(type(self)) ~= string.lower("table"))then return 0 end
 		
 		local count = 0
 		for key, value in pairs(self) do
 			count = count + 1
-			--MainWriter.WriteToEndOfFile({mes="key: "..tostring(key).."value: "..tostring(value).."\n"})
+			--private.main_writer.WriteToEndOfFile({mes="key: "..tostring(key).."value: "..tostring(value).."\n"})
 		end
 		return count
 	end
@@ -398,28 +400,28 @@ function Startegy_parabolic:new(strategyTable)
 		local last_price = self.last_price
 		
 		if (prev_bar == nil or last_price ==nil) then return end
-		--MainWriter.WriteToEndOfFile({mes="Count max: "..tostring(count_max).."Count min: "..tostring(count_min).."\n"})
+		--private.main_writer.WriteToEndOfFile({mes="Count max: "..tostring(count_max).."Count min: "..tostring(count_min).."\n"})
 		if (count_max < 1) then
 			private.cash_maximum["last_max"] = prev_bar.high
-			--MainWriter.WriteToEndOfFile({mes="1)Insert new max "..tostring(private.cash_maximum["last_max"]).."\n"})
+			--private.main_writer.WriteToEndOfFile({mes="1)Insert new max "..tostring(private.cash_maximum["last_max"]).."\n"})
 		end
 		if (count_min < 1) then
 			private.cash_minimum["last_min"] = prev_bar.low
-			--MainWriter.WriteToEndOfFile({mes="1)Insert new min "..tostring(private.cash_minimum["last_min"]).."\n"})
+			--private.main_writer.WriteToEndOfFile({mes="1)Insert new min "..tostring(private.cash_minimum["last_min"]).."\n"})
 		end
 		
 		if (self.long_side == true) then
 		--previous bar was long position bar
-			--MainWriter.WriteToEndOfFile({mes="prev_bar.high = "..tostring(prev_bar.high).."; private.cash_maximum['last_max'] = "..tostring(private.cash_maximum["last_max"]).."\n"})
+			--private.main_writer.WriteToEndOfFile({mes="prev_bar.high = "..tostring(prev_bar.high).."; private.cash_maximum['last_max'] = "..tostring(private.cash_maximum["last_max"]).."\n"})
 		
 			if (private.cash_maximum["last_max"] == nil or prev_bar.high > private.cash_maximum["last_max"]) then
 				private.cash_maximum["last_max"] = prev_bar.high
-				--MainWriter.WriteToEndOfFile({mes="2)Insert new max "..tostring(private.cash_maximum["last_max"]).."\n"})
+				--private.main_writer.WriteToEndOfFile({mes="2)Insert new max "..tostring(private.cash_maximum["last_max"]).."\n"})
 			end
 			if ( self.signal_bar == true) then
 				--if current bar is change situation bar
 				private.cash_maximum["last_max"] = last_price
-				--MainWriter.WriteToEndOfFile({mes="Insert new max on change situation "..tostring(private.cash_maximum["last_max"]).."\n"})
+				--private.main_writer.WriteToEndOfFile({mes="Insert new max on change situation "..tostring(private.cash_maximum["last_max"]).."\n"})
 
 			end			
 			
@@ -427,12 +429,12 @@ function Startegy_parabolic:new(strategyTable)
 		--previous bar was short position bar
 			if (private.cash_minimum["last_min"] == nil or prev_bar.low < private.cash_minimum["last_min"]) then
 				private.cash_minimum["last_min"] = prev_bar.low
-				--MainWriter.WriteToEndOfFile({mes="Insert new min "..tostring(private.cash_minimum["last_min"]).."\n"})
+				--private.main_writer.WriteToEndOfFile({mes="Insert new min "..tostring(private.cash_minimum["last_min"]).."\n"})
 			end
 			if ( self.signal_bar == true) then
 				--if current bar is change situation bar
 				private.cash_minimum["last_min"] = last_price
-				--MainWriter.WriteToEndOfFile({mes="2)Insert new min on change situation "..tostring(private.cash_minimum["last_min"]).."\n"})
+				--private.main_writer.WriteToEndOfFile({mes="2)Insert new min on change situation "..tostring(private.cash_minimum["last_min"]).."\n"})
 			end					
 		else
 			message("calculate_last_extremum(): Error not signal from signal_check")
@@ -451,21 +453,101 @@ function Startegy_parabolic:new(strategyTable)
 		return private_func.IsValidate({mes="Success added transaction manager"})		
 	end
 	
+	function public:set_table_manager()
+		local table_manager_is_table = private_func.IsTable({table=self, mes="set_table_manager(): "})
+		if (table_manager_is_table.result == false or self.getIdTable() == nil) then 
+			return private_func.IsNotValidate({mes="Not success of added table-startegy manager"})
+		end
+		
+		private.strategy_table = self
+		--message("EEE:" .. tostring(self.getAllocTable()))
+		
+		return private_func.IsValidate({mes="Success added table-strategy manager"})		
+	end
+
+	function public:set_main_writer()
+		local main_writer_is_table = private_func.IsTable({table=self, mes="set_main_writer(): "})
+		if (main_writer_is_table.result == false or self.getIdWriter() == nil) then 
+			return private_func.IsNotValidate({mes="Not success of added main_writer manager"})
+		end
+		
+		private.main_writer = self
+		
+		return private_func.IsValidate({mes="Success added main-writer manager"})		
+	end		
+		
+	function public:set_visual_table_property()
+		
+	
+		
+	end
+		
 	function public:strategy_start()
 	--activate strategy
 		--if all properties filled is_activate = true
 		local _res = private_func.IsNilPropertyOfTable(private)
 		private.is_active = _res.result
 		
-		if (_res.result == false) then return _res end
+		--set table property of visualization
 		
-		--inicialize positions for this strategy
-		--private.dictionary_of_names_positions["first_position"] = "position_with_stop"
-		--private.dictionary_of_names_positions["second_position"] = "position_revers"
+		
+		
+		
+		if (_res.result == false) then return _res end
 		
 		return _res
 	end	
 		
+	function private_func:fill_startegy_table()
+		--count open volume in position
+		local first_long_pos = "long_position_one"
+		local target_first_long = "S:0;T;0"
+		local second_long_pos = "long_position_145"
+		local target_second_long = "S:0;T;0"
+		local first_short_pos = "short_position_one"
+		local target_first_short = "S:0;T;0"
+		local second_short_pos = "short_position_145"
+		local target_second_short = "S:0;T;0"
+		
+		for key, value in pairs (private.active_positions) do
+			if (key == first_long_pos) then 
+				first_long_pos = tostring(value.get_delta_lot_of_position()).."L_1:"..tostring(value.get_enter_price())
+				target_first_long = "S:"..tostring(value.get_stoploss_price())..";T:"..tostring(value.get_takeprofit_price())				
+			end
+			if (key == second_long_pos) then 
+				second_long_pos = tostring(value.get_delta_lot_of_position()).."L_2:"..tostring(value.get_enter_price())
+				target_second_long = "S:"..tostring(value.get_stoploss_price())..";T:"..tostring(value.get_takeprofit_price())	
+			end
+			if (key == first_short_pos) then 
+				first_short_pos = "-"..tostring(value.get_delta_lot_of_position()).."S_1:"..tostring(value.get_enter_price())
+				target_first_short = "S:"..tostring(value.get_stoploss_price())..";T:"..tostring(value.get_takeprofit_price())	
+			end
+			if (key == second_short_pos) then 
+				second_short_pos = "-"..tostring(value.get_delta_lot_of_position()).."S_2:"..tostring(value.get_enter_price())
+				target_second_short = "S:"..tostring(value.get_stoploss_price())..";T:"..tostring(value.get_takeprofit_price())	
+			end
+		end
+		
+		--Info to visual table
+		private.main_writer.WriteToConsole({mes="market_side", column=7, row=1})
+		private.main_writer.WriteToConsole({mes=signal_check.mes, column=7, row=2})
+		private.main_writer.WriteToConsole({mes="signal bar", column=8, row=1})
+		private.main_writer.WriteToConsole({mes=tostring(signal_check.signal_bar), column=8, row=2})
+		private.main_writer.WriteToConsole({mes=first_long_pos, column=9, row=1})
+		private.main_writer.WriteToConsole({mes=target_first_long, column=9, row=2})
+		private.main_writer.WriteToConsole({mes="Open", column=9, row=3})
+		
+		private.main_writer.WriteToConsole({mes=second_long_pos, column=10, row=1})
+		private.main_writer.WriteToConsole({mes=target_second_long, column=10, row=2})
+		
+		private.main_writer.WriteToConsole({mes=first_short_pos, column=11, row=1})
+		private.main_writer.WriteToConsole({mes=target_first_short, column=11, row=2})
+		private.main_writer.WriteToConsole({mes="Close", column=11, row=3})
+		
+		private.main_writer.WriteToConsole({mes=second_short_pos, column=12, row=1})
+		private.main_writer.WriteToConsole({mes=target_second_short, column=12, row=2})
+		--------------------------	
+	end
 
 	function public:check_market()
 		local _is_active = private_func.IsActiveStrategy({mes="check_market()"})		
@@ -479,32 +561,32 @@ function Startegy_parabolic:new(strategyTable)
 		
 		local is_anti_market_position = false		
 		local list_to_delete = {}
-		--MainWriter.WriteToEndOfFile({mes="Long side = "..tostring(signal_check.long_side).."; Signal bar = "..tostring(signal_check.signal_bar).."\n"})
+		--private.main_writer.WriteToEndOfFile({mes="Long side = "..tostring(signal_check.long_side).."; Signal bar = "..tostring(signal_check.signal_bar).."\n"})
 		
 		for key, value in pairs (private.active_positions) do
 			--1)check in dictionary of active position for antimarket position	
 			local is_table = private_func.IsTable({table=value, mes="check_market()"}) 
-			--MainWriter.WriteToEndOfFile({mes="Type of VALUE =  "..is_table.mes.."   type = "..tostring(type(value)).."\n"})
+			--private.main_writer.WriteToEndOfFile({mes="Type of VALUE =  "..is_table.mes.."   type = "..tostring(type(value)).."\n"})
 			if (is_table.result == true) then
 				--if we have position in active dictionary as table		
-				--MainWriter.WriteToEndOfFile({mes="We have position in active dictionary ".."\n"})
+				--private.main_writer.WriteToEndOfFile({mes="We have position in active dictionary ".."\n"})
 				if (value.get_is_active() == false) then
 					--if position is not active
-					--MainWriter.WriteToEndOfFile({mes="position is not active ".."\n"})
+					--private.main_writer.WriteToEndOfFile({mes="position is not active ".."\n"})
 					private.not_active_positions[key..value.get_id_position()] = value
 					list_to_delete[key] = key
 				else
 					--if position is active
-					--MainWriter.WriteToEndOfFile({mes="position is Active ".."\n"})
+					--private.main_writer.WriteToEndOfFile({mes="position is Active ".."\n"})
 					if (value.get_side() == "B" and signal_check.long_side == false) then
 						--position in dictionary is long, but market is short
-						--MainWriter.WriteToEndOfFile({mes="position is Long, but market is short ".."\n"})
+						--private.main_writer.WriteToEndOfFile({mes="position is Long, but market is short ".."\n"})
 						--is_anti_market_position = true							
 						value.turn_off_position()
 						
 					elseif (value.get_side() == "S" and signal_check.long_side == true) then
 						--position in dictionary is short, but market is long
-						--MainWriter.WriteToEndOfFile({mes="position is Short, but market is long ".."\n"})
+						--private.main_writer.WriteToEndOfFile({mes="position is Short, but market is long ".."\n"})
 						--is_anti_market_position = true
 						value.turn_off_position()
 					end					
@@ -518,7 +600,7 @@ function Startegy_parabolic:new(strategyTable)
 		--clear dictionary of crude if it was moved to executed dictionary
 		for key, value in pairs(list_to_delete) do
 			private.active_positions[value] = nil
-			MainWriter.WriteToEndOfFile({mes="Delete position from active dictionary position: "..tostring(value)})
+			private.main_writer.WriteToEndOfFile({mes="Delete position from active dictionary position: "..tostring(value)})
 		end
 
 		if (is_anti_market_position == false) then		
@@ -530,7 +612,7 @@ function Startegy_parabolic:new(strategyTable)
 				local name_position_one = ""
 				local name_position_two = ""
 				if (signal_check.long_side == true) then
-					--MainWriter.WriteToEndOfFile({mes="Now signal bar And LONG situation".."\n"})
+					--private.main_writer.WriteToEndOfFile({mes="Now signal bar And LONG situation".."\n"})
 					
 					--Position one take 60steps-----------------------
 					name_position_one = "long_position_one"					
@@ -541,14 +623,14 @@ function Startegy_parabolic:new(strategyTable)
 					
 					if (is_position_long_one == false) then
 						--if not active long position open it
-						MainWriter.WriteToEndOfFile({mes="Long_ONE position not in active dictionary. Set it. Set new last_min"})
+						private.main_writer.WriteToEndOfFile({mes="Long_ONE position not in active dictionary. Set it. Set new last_min"})
 						--------------------------------------------
 						private.active_positions[name_position_one] = private_func.create_long_reverse_position()
-						MainWriter.WriteToEndOfFile({mes="Create Long ONE position N: "..tostring(private.active_positions[name_position_one].get_id_position()).."\n"})
+						private.main_writer.WriteToEndOfFile({mes="Create Long ONE position N: "..tostring(private.active_positions[name_position_one].get_id_position()).."\n"})
 						private.active_positions[name_position_one].ActivatePosition()	
 						--insert new stop
 						private.active_positions[name_position_one].make_new_stop(private.cash_minimum["last_min"])
-						MainWriter.WriteToEndOfFile({mes="Long ONE Enter price = "..tostring(private.active_positions[name_position_one].get_enter_price())..
+						private.main_writer.WriteToEndOfFile({mes="Long ONE Enter price = "..tostring(private.active_positions[name_position_one].get_enter_price())..
 								"; Stop = "..tostring(private.active_positions[name_position_one].get_stoploss_price()).."; "..
 								"; Take = "..tostring(private.active_positions[name_position_one].get_takeprofit_price())})
 						-------------------------------------------
@@ -563,14 +645,14 @@ function Startegy_parabolic:new(strategyTable)
 					end
 					if (is_position_long_two == false) then
 						--if not active long position open it
-						MainWriter.WriteToEndOfFile({mes="Long position_TWO 145 not in active dictionary. Set it. Set new last_min"})
+						private.main_writer.WriteToEndOfFile({mes="Long position_TWO 145 not in active dictionary. Set it. Set new last_min"})
 						--------------------------------------------
 						private.active_positions[name_position_two] = private_func.create_long_reverse_position145()
-						MainWriter.WriteToEndOfFile({mes="Create Long TWO position N: "..tostring(private.active_positions[name_position_two].get_id_position()).."\n"})
+						private.main_writer.WriteToEndOfFile({mes="Create Long TWO position N: "..tostring(private.active_positions[name_position_two].get_id_position())})
 						private.active_positions[name_position_two].ActivatePosition()	
 						--insert new stop
 						private.active_positions[name_position_two].make_new_stop(private.cash_minimum["last_min"])
-						MainWriter.WriteToEndOfFile({mes="Long TWO Enter price = "..tostring(private.active_positions[name_position_two].get_enter_price())..
+						private.main_writer.WriteToEndOfFile({mes="Long TWO Enter price = "..tostring(private.active_positions[name_position_two].get_enter_price())..
 								"; Stop = "..tostring(private.active_positions[name_position_two].get_stoploss_price()).."; "..
 								"; Take = "..tostring(private.active_positions[name_position_two].get_takeprofit_price())})
 						-------------------------------------------						
@@ -578,7 +660,7 @@ function Startegy_parabolic:new(strategyTable)
 					---------------------------------------------------------
 					
 				elseif (signal_check.long_side == false) then
-					--MainWriter.WriteToEndOfFile({mes="Now signal bar And SHORT situation".."\n"})
+					--private.main_writer.WriteToEndOfFile({mes="Now signal bar And SHORT situation".."\n"})
 					
 					--Position one take 60steps-----------------------
 					name_position_one = "short_position_one"
@@ -588,14 +670,14 @@ function Startegy_parabolic:new(strategyTable)
 					end
 					if (is_position_short_one == false) then
 						--if not active long position open it
-						MainWriter.WriteToEndOfFile({mes="Short position not in active dictionary. Set it. Set new last_max".."\n"})
+						private.main_writer.WriteToEndOfFile({mes="Short position not in active dictionary. Set it. Set new last_max".."\n"})
 						--------------------------------------------
 						private.active_positions[name_position_one] = private_func.create_short_reverse_position()
-						MainWriter.WriteToEndOfFile({mes="Create Short position N: "..tostring(private.active_positions[name_position_one].get_id_position()).."\n"})
+						private.main_writer.WriteToEndOfFile({mes="Create Short position N: "..tostring(private.active_positions[name_position_one].get_id_position())})
 						private.active_positions[name_position_one].ActivatePosition()	
 						--inser new stop						
 						private.active_positions[name_position_one].make_new_stop(private.cash_maximum["last_max"])
-						MainWriter.WriteToEndOfFile({mes="Short Enter price = "..tostring(private.active_positions[name_position_one].get_enter_price())..
+						private.main_writer.WriteToEndOfFile({mes="Short Enter price = "..tostring(private.active_positions[name_position_one].get_enter_price())..
 														"; Stop = "..tostring(private.active_positions[name_position_one].get_stoploss_price()).."; "..
 														"; Take = "..tostring(private.active_positions[name_position_one].get_takeprofit_price())..";\n"})
 						-----------------------------------------------								
@@ -609,14 +691,14 @@ function Startegy_parabolic:new(strategyTable)
 					end
 					if (is_position_short_two == false) then
 						--if not active long position open it
-						MainWriter.WriteToEndOfFile({mes="Long position_TWO 145 not in active dictionary. Set it. Set new last_min".."\n"})
+						private.main_writer.WriteToEndOfFile({mes="Long position_TWO 145 not in active dictionary. Set it. Set new last_min".."\n"})
 						--------------------------------------------
 						private.active_positions[name_position_two] = private_func.create_short_reverse_position145()
-						MainWriter.WriteToEndOfFile({mes="Create Long TWO 145 position N: "..tostring(private.active_positions[name_position_two].get_id_position()).."\n"})
+						private.main_writer.WriteToEndOfFile({mes="Create Long TWO 145 position N: "..tostring(private.active_positions[name_position_two].get_id_position()).."\n"})
 						private.active_positions[name_position_two].ActivatePosition()	
 						--insert new stop
 						private.active_positions[name_position_two].make_new_stop(private.cash_maximum["last_max"])
-						MainWriter.WriteToEndOfFile({mes="Long TWO 145 Enter price = "..tostring(private.active_positions[name_position_two].get_enter_price())..
+						private.main_writer.WriteToEndOfFile({mes="Long TWO 145 Enter price = "..tostring(private.active_positions[name_position_two].get_enter_price())..
 								"; Stop = "..tostring(private.active_positions[name_position_two].get_stoploss_price()).."; "..
 								"; Take = "..tostring(private.active_positions[name_position_two].get_takeprofit_price())..";\n"})
 						-------------------------------------------						
@@ -634,7 +716,7 @@ function Startegy_parabolic:new(strategyTable)
 		--make new stop
 		if (signal_check.signal_bar == false) then
 			for key, value in pairs(private.active_positions) do
-				--MainWriter.WriteToEndOfFile({mes="Make new stop: "..tostring(signal_check.indicator.close).."\n"})
+				--private.main_writer.WriteToEndOfFile({mes="Make new stop: "..tostring(signal_check.indicator.close).."\n"})
 				value.make_new_stop(signal_check.indicator.close)
 			end
 		end
@@ -651,15 +733,31 @@ function Startegy_parabolic:new(strategyTable)
 			})
 			
 			value.main_loop_position()
-			--MainWriter.WriteToEndOfFile({mes="...".."\n"})
-		end		
+			--private.main_writer.WriteToEndOfFile({mes="...".."\n"})
+		end
 		
+		private_func.fill_startegy_table()
+		
+		is_run = private.strategy_table.actionOnTable()
+		
+		if (private.strategy_table.get_13_cell() == true)then
+			message("Pressed 13 cell")
+			private.strategy_table.turn_off_13_cell()
+		end
+		
+		
+		--SetCell(private.idTradeTable.getAllocTable(), self.column, self.row, tostring(self.mes))
+		--message("In MAnage: "..private.strategy_table.getAllocTable())
+		
+				
 		return {result = true,
 				mes = signal_check.mes,
 				id_strategy = private.id_strategy
-				}		
+		}
+		
 	end
-	
+		
+
 	-----------------------------------------------------------------------
 	function public:get_id_strategy()
 		return private.id_strategy
@@ -695,10 +793,6 @@ function Startegy_parabolic:new(strategyTable)
 	
 	function public:get_transaction_manager()
 		return private.transaction_manager
-	end
-	
-	function public:get_number_position()
-		return private.number_position
 	end
 	
 	function public:get_name_position()
