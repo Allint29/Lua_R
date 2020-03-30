@@ -16,7 +16,7 @@ function OnInit()
 	Timer = 3;
 	Class="SPBFUT"  --"TQBR" "SBER"	 "SPBOPT" "RI162500BM0E"
 	--Emit="BRG0"	
-	Emit="SiH0"
+	Emit="SiM0"
 	SECURITY_TABLE_1 = getSecurityInfo(Class, Emit)
 	MyAccount = "41026II"	
     Slip = 30	

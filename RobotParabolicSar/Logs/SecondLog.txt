@@ -214,3 +214,831 @@
 27.02.2020  16:16:32: ___ Robot stoped!;
 27.02.2020  16:23:42: ___ Writer activated;
 27.02.2020  16:24:26: ___ Robot stoped!;
+05.03.2020  19:51:51: ___ Writer activated;
+05.03.2020  19:57:11: ___ Writer activated;
+05.03.2020  20:14:28: ___ Writer activated;
+05.03.2020  20:14:45: ___ Robot stoped!;
+05.03.2020  20:17:03: ___ Writer activated;
+05.03.2020  20:21:18: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+05.03.2020  20:21:18: ___ Create Short position N: 1100129;
+05.03.2020  20:21:18: ___ Short Enter price = 67298; Stop = 67400; ; Take = 67238;
+;
+05.03.2020  20:21:18: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+05.03.2020  20:21:18: ___ Create Long TWO 145 position N: 1356369
+;
+05.03.2020  20:21:18: ___ Long TWO 145 Enter price = 67298; Stop = 67400; ; Take = 67173;
+;
+05.03.2020  20:27:08: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+05.03.2020  20:27:08: ___ Create Long ONE position N: 1119339
+;
+05.03.2020  20:27:08: ___ Long ONE Enter price = 67358; Stop = 67286; ; Take = 67418;
+05.03.2020  20:27:08: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+05.03.2020  20:27:08: ___ Create Long TWO position N: 1380889;
+05.03.2020  20:27:09: ___ Long TWO Enter price = 67358; Stop = 67286; ; Take = 67483;
+05.03.2020  20:27:15: ___ Delete position from active dictionary position: short_position_145;
+05.03.2020  20:27:15: ___ Delete position from active dictionary position: short_position_one;
+05.03.2020  20:37:42: ___ Delete position from active dictionary position: long_position_one;
+05.03.2020  20:39:49: ___ Delete position from active dictionary position: long_position_145;
+05.03.2020  20:47:13: ___ Robot stoped!;
+05.03.2020  20:48:22: ___ Writer activated;
+05.03.2020  20:48:24: ___ Robot stoped!;
+05.03.2020  20:48:38: ___ Writer activated;
+05.03.2020  20:48:41: ___ Robot stoped!;
+05.03.2020  20:50:57: ___ Writer activated;
+27.03.2020  8:48:25: ___ Writer activated;
+27.03.2020  8:48:46: ___ Robot stoped!;
+30.03.2020  11:06:35: ___ Writer activated;
+30.03.2020  11:07:09: ___ Robot stoped!;
+30.03.2020  11:07:15: ___ Writer activated;
+30.03.2020  11:07:30: ___ Robot stoped!;
+30.03.2020  11:10:16: ___ Writer activated;
+30.03.2020  11:12:33: ___ Robot stoped!;
+30.03.2020  11:13:28: ___ Writer activated;
+30.03.2020  11:20:00: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  11:20:00: ___ Create Long ONE position N: 1100129
+;
+30.03.2020  11:20:00: ___ Long ONE Enter price = 80452; Stop = 80127; ; Take = 80552;
+30.03.2020  11:20:00: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  11:20:00: ___ Create Long TWO position N: 1356369;
+30.03.2020  11:20:00: ___ Long TWO Enter price = 80452; Stop = 80127; ; Take = 80642;
+30.03.2020  11:23:17: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  11:35:18: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  11:35:18: ___ Create Short position N: 1119339;
+30.03.2020  11:35:18: ___ Short Enter price = 80412; Stop = 80561; ; Take = 80312;
+;
+30.03.2020  11:35:18: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  11:35:18: ___ Create Long TWO 145 position N: 1380889
+;
+30.03.2020  11:35:18: ___ Long TWO 145 Enter price = 80407; Stop = 80561; ; Take = 80217;
+;
+30.03.2020  11:35:24: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  11:35:55: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  11:35:55: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  11:37:40: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  11:37:40: ___ Create Long ONE position N: 1158509
+;
+30.03.2020  11:37:40: ___ Long ONE Enter price = 80535; Stop = 80399; ; Take = 80635;
+30.03.2020  11:37:40: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  11:37:40: ___ Create Long TWO position N: 1347999;
+30.03.2020  11:37:40: ___ Long TWO Enter price = 80535; Stop = 80399; ; Take = 80725;
+30.03.2020  11:41:07: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  11:44:29: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  11:44:29: ___ Create Short position N: 1135039;
+30.03.2020  11:44:29: ___ Short Enter price = 80496; Stop = 80683; ; Take = 80396;
+;
+30.03.2020  11:44:29: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  11:44:29: ___ Create Long TWO 145 position N: 1389609
+;
+30.03.2020  11:44:29: ___ Long TWO 145 Enter price = 80496; Stop = 80683; ; Take = 80306;
+;
+30.03.2020  11:44:40: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  11:54:34: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  11:54:35: ___ Create Long ONE position N: 1182299
+;
+30.03.2020  11:54:35: ___ Long ONE Enter price = 80563; Stop = 80423; ; Take = 80663;
+30.03.2020  11:54:35: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  11:54:35: ___ Create Long TWO position N: 1374669;
+30.03.2020  11:54:35: ___ Long TWO Enter price = 80563; Stop = 80423; ; Take = 80753;
+30.03.2020  11:54:41: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  11:54:41: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  11:57:33: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  12:01:11: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  12:15:02: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  12:15:02: ___ Create Short position N: 1117419;
+30.03.2020  12:15:02: ___ Short Enter price = 80733; Stop = 80880; ; Take = 80633;
+;
+30.03.2020  12:15:02: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  12:15:02: ___ Create Long TWO 145 position N: 1385909
+;
+30.03.2020  12:15:02: ___ Long TWO 145 Enter price = 80733; Stop = 80880; ; Take = 80543;
+;
+30.03.2020  12:22:32: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  12:25:21: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  12:27:24: ___ Robot stoped!;
+30.03.2020  12:51:00: ___ Writer activated;
+30.03.2020  12:55:04: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  12:55:04: ___ Create Short position N: 1100129;
+30.03.2020  12:55:04: ___ Short Enter price = 80534; Stop = 80716; ; Take = 80434;
+;
+30.03.2020  12:55:04: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  12:55:04: ___ Create Short TWO 145 position N: 1356369
+;
+30.03.2020  12:55:04: ___ Short TWO 145 Enter price = 80534; Stop = 80716; ; Take = 80344;
+;
+30.03.2020  12:55:04: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  12:55:04: ___ Create Short THREE 500 position N: 1319339
+;
+30.03.2020  12:55:04: ___ Short THREE 500 Enter price = 80534; Stop = 80716; ; Take = 80344;
+;
+30.03.2020  13:05:24: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  13:05:24: ___ Create Long ONE position N: 1180889
+;
+30.03.2020  13:05:24: ___ Long ONE Enter price = 80594; Stop = 80460; ; Take = 80694;
+30.03.2020  13:05:24: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  13:05:24: ___ Create Long TWO position N: 1358509;
+30.03.2020  13:05:24: ___ Long TWO Enter price = 80594; Stop = 80460; ; Take = 80784;
+30.03.2020  13:05:24: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  13:05:24: ___ Create Long THREE position N: 1147999;
+30.03.2020  13:05:24: ___ Long THREE Enter price = 80595; Stop = 80460; ; Take = 81085;
+30.03.2020  13:05:30: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  13:05:30: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  13:05:30: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  13:11:43: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  13:15:01: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  13:15:01: ___ Create Short position N: 1135039;
+30.03.2020  13:15:01: ___ Short Enter price = 80578; Stop = 80726; ; Take = 80478;
+;
+30.03.2020  13:15:01: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  13:15:01: ___ Create Short TWO 145 position N: 1389609
+;
+30.03.2020  13:15:01: ___ Short TWO 145 Enter price = 80578; Stop = 80726; ; Take = 80388;
+;
+30.03.2020  13:15:01: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  13:15:01: ___ Create Short THREE 500 position N: 1382299
+;
+30.03.2020  13:15:01: ___ Short THREE 500 Enter price = 80578; Stop = 80726; ; Take = 80388;
+;
+30.03.2020  13:15:07: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  13:15:07: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  13:19:37: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  13:19:37: ___ Create Long ONE position N: 1174669
+;
+30.03.2020  13:19:37: ___ Long ONE Enter price = 80663; Stop = 80478; ; Take = 80763;
+30.03.2020  13:19:37: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  13:19:37: ___ Create Long TWO position N: 1317419;
+30.03.2020  13:19:38: ___ Long TWO Enter price = 80663; Stop = 80478; ; Take = 80853;
+30.03.2020  13:19:38: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  13:19:38: ___ Create Long THREE position N: 1185909;
+30.03.2020  13:19:38: ___ Long THREE Enter price = 80661; Stop = 80478; ; Take = 81151;
+30.03.2020  13:19:44: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  13:19:44: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  13:19:44: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  13:24:04: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  13:24:55: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  13:30:36: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  13:30:36: ___ Create Short position N: 1171059;
+30.03.2020  13:30:36: ___ Short Enter price = 80663; Stop = 80867; ; Take = 80563;
+;
+30.03.2020  13:30:36: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  13:30:36: ___ Create Short TWO 145 position N: 1351359
+;
+30.03.2020  13:30:36: ___ Short TWO 145 Enter price = 80663; Stop = 80867; ; Take = 80473;
+;
+30.03.2020  13:30:36: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  13:30:36: ___ Create Short THREE 500 position N: 1330409
+;
+30.03.2020  13:30:36: ___ Short THREE 500 Enter price = 80663; Stop = 80867; ; Take = 80473;
+;
+30.03.2020  13:30:42: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  13:36:48: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  13:36:48: ___ Create Long ONE position N: 1101499
+;
+30.03.2020  13:36:48: ___ Long ONE Enter price = 80805; Stop = 80654; ; Take = 80905;
+30.03.2020  13:36:48: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  13:36:48: ___ Create Long TWO position N: 1309149;
+30.03.2020  13:36:48: ___ Long TWO Enter price = 80798; Stop = 80654; ; Take = 80988;
+30.03.2020  13:36:49: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  13:36:49: ___ Create Long THREE position N: 1136449;
+30.03.2020  13:36:49: ___ Long THREE Enter price = 80798; Stop = 80654; ; Take = 81288;
+30.03.2020  13:36:55: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  13:36:55: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  13:36:55: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  13:43:29: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  13:43:29: ___ Create Short position N: 1114739;
+30.03.2020  13:43:29: ___ Short Enter price = 80719; Stop = 80818; ; Take = 80619;
+;
+30.03.2020  13:43:29: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  13:43:29: ___ Create Short TWO 145 position N: 1316599
+;
+30.03.2020  13:43:29: ___ Short TWO 145 Enter price = 80719; Stop = 80818; ; Take = 80529;
+;
+30.03.2020  13:43:29: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  13:43:29: ___ Create Short THREE 500 position N: 1398869
+;
+30.03.2020  13:43:29: ___ Short THREE 500 Enter price = 80719; Stop = 80818; ; Take = 80529;
+;
+30.03.2020  13:43:35: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  13:43:35: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  13:43:37: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  13:50:16: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  13:50:16: ___ Create Long ONE position N: 1144579
+;
+30.03.2020  13:50:16: ___ Long ONE Enter price = 80767; Stop = 80671; ; Take = 80867;
+30.03.2020  13:50:16: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  13:50:16: ___ Create Long TWO position N: 1311909;
+30.03.2020  13:50:16: ___ Long TWO Enter price = 80767; Stop = 80671; ; Take = 80957;
+30.03.2020  13:50:16: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  13:50:16: ___ Create Long THREE position N: 1100469;
+30.03.2020  13:50:16: ___ Long THREE Enter price = 80767; Stop = 80671; ; Take = 81257;
+30.03.2020  13:50:22: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  13:50:22: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  13:50:22: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  13:54:51: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  14:05:52: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  14:11:57: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  14:11:57: ___ Create Short position N: 1100899;
+30.03.2020  14:11:57: ___ Short Enter price = 80855; Stop = 80976; ; Take = 80755;
+;
+30.03.2020  14:11:57: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  14:11:57: ___ Create Short TWO 145 position N: 1337799
+;
+30.03.2020  14:11:57: ___ Short TWO 145 Enter price = 80855; Stop = 80976; ; Take = 80665;
+;
+30.03.2020  14:11:57: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  14:11:57: ___ Create Short THREE 500 position N: 1353179
+;
+30.03.2020  14:11:57: ___ Short THREE 500 Enter price = 80856; Stop = 80976; ; Take = 80666;
+;
+30.03.2020  14:12:04: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  14:17:51: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  14:26:09: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  14:26:09: ___ Create Long ONE position N: 1157129
+;
+30.03.2020  14:26:09: ___ Long ONE Enter price = 80818; Stop = 80708; ; Take = 80918;
+30.03.2020  14:26:09: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  14:26:09: ___ Create Long TWO position N: 1360189;
+30.03.2020  14:26:09: ___ Long TWO Enter price = 80818; Stop = 80708; ; Take = 81008;
+30.03.2020  14:26:09: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  14:26:09: ___ Create Long THREE position N: 1160729;
+30.03.2020  14:26:09: ___ Long THREE Enter price = 80812; Stop = 80708; ; Take = 81302;
+30.03.2020  14:26:25: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  14:26:25: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  14:35:08: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  14:46:52: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  14:46:52: ___ Create Short position N: 1116629;
+30.03.2020  14:46:52: ___ Short Enter price = 80889; Stop = 80988; ; Take = 80789;
+;
+30.03.2020  14:46:52: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  14:46:52: ___ Create Short TWO 145 position N: 1366319
+;
+30.03.2020  14:46:52: ___ Short TWO 145 Enter price = 80889; Stop = 80988; ; Take = 80699;
+;
+30.03.2020  14:46:52: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  14:46:52: ___ Create Short THREE 500 position N: 1345089
+;
+30.03.2020  14:46:52: ___ Short THREE 500 Enter price = 80889; Stop = 80988; ; Take = 80699;
+;
+30.03.2020  14:46:59: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  14:46:59: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  14:52:43: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  15:01:08: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  15:01:08: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  15:19:28: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  15:19:28: ___ Create Short position N: 1135219;
+30.03.2020  15:19:28: ___ Short Enter price = 80901; Stop = 80989; ; Take = 80801;
+;
+30.03.2020  15:19:28: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  15:19:28: ___ Create Short TWO 145 position N: 1305709
+;
+30.03.2020  15:19:28: ___ Short TWO 145 Enter price = 80901; Stop = 80989; ; Take = 80711;
+;
+30.03.2020  15:19:29: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  15:19:29: ___ Create Short THREE 500 position N: 1360779
+;
+30.03.2020  15:19:29: ___ Short THREE 500 Enter price = 80902; Stop = 80989; ; Take = 80712;
+;
+30.03.2020  15:32:52: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  15:38:12: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  15:38:12: ___ Create Long ONE position N: 1178339
+;
+30.03.2020  15:38:12: ___ Long ONE Enter price = 80836; Stop = 80710; ; Take = 80936;
+30.03.2020  15:38:12: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  15:38:12: ___ Create Long TWO position N: 1380269;
+30.03.2020  15:38:12: ___ Long TWO Enter price = 80836; Stop = 80710; ; Take = 81026;
+30.03.2020  15:38:12: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  15:38:12: ___ Create Long THREE position N: 1151999;
+30.03.2020  15:38:12: ___ Long THREE Enter price = 80836; Stop = 80710; ; Take = 81326;
+30.03.2020  15:38:18: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  15:38:18: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  15:42:22: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  15:42:22: ___ Create Short position N: 1130199;
+30.03.2020  15:42:22: ___ Short Enter price = 80752; Stop = 80858; ; Take = 80652;
+;
+30.03.2020  15:42:22: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  15:42:22: ___ Create Short TWO 145 position N: 1387609
+;
+30.03.2020  15:42:22: ___ Short TWO 145 Enter price = 80752; Stop = 80858; ; Take = 80562;
+;
+30.03.2020  15:42:22: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  15:42:22: ___ Create Short THREE 500 position N: 1372679
+;
+30.03.2020  15:42:22: ___ Short THREE 500 Enter price = 80752; Stop = 80858; ; Take = 80562;
+;
+30.03.2020  15:42:28: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  15:42:28: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  15:42:28: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  15:49:01: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  15:49:01: ___ Create Long ONE position N: 1195599
+;
+30.03.2020  15:49:02: ___ Long ONE Enter price = 80779; Stop = 80663; ; Take = 80879;
+30.03.2020  15:49:02: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  15:49:02: ___ Create Long TWO position N: 1392589;
+30.03.2020  15:49:02: ___ Long TWO Enter price = 80780; Stop = 80663; ; Take = 80970;
+30.03.2020  15:49:02: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  15:49:02: ___ Create Long THREE position N: 1153949;
+30.03.2020  15:49:02: ___ Long THREE Enter price = 80780; Stop = 80663; ; Take = 81270;
+30.03.2020  15:49:28: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  15:49:28: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  15:49:28: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  15:49:49: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  15:49:49: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  15:49:49: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  15:50:23: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  15:50:23: ___ Create Short position N: 1114239;
+30.03.2020  15:50:23: ___ Short Enter price = 80679; Stop = 80795; ; Take = 80579;
+;
+30.03.2020  15:50:23: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  15:50:23: ___ Create Short TWO 145 position N: 1346219
+;
+30.03.2020  15:50:23: ___ Short TWO 145 Enter price = 80679; Stop = 80795; ; Take = 80489;
+;
+30.03.2020  15:50:23: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  15:50:23: ___ Create Short THREE 500 position N: 1323539
+;
+30.03.2020  15:50:23: ___ Short THREE 500 Enter price = 80679; Stop = 80795; ; Take = 80489;
+;
+30.03.2020  15:52:22: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  15:55:52: ___ Robot stoped!;
+30.03.2020  15:56:14: ___ Writer activated;
+30.03.2020  16:01:40: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  16:01:40: ___ Create Long ONE position N: 1100129
+;
+30.03.2020  16:01:40: ___ Long ONE Enter price = 80627; Stop = 80505; ; Take = 80727;
+30.03.2020  16:01:40: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  16:01:40: ___ Create Long TWO position N: 1356369;
+30.03.2020  16:01:40: ___ Long TWO Enter price = 80627; Stop = 80505; ; Take = 80817;
+30.03.2020  16:01:40: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  16:01:40: ___ Create Long THREE position N: 1119339;
+30.03.2020  16:01:40: ___ Long THREE Enter price = 80627; Stop = 80505; ; Take = 81117;
+30.03.2020  16:09:13: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  16:09:13: ___ Create Short position N: 1180889;
+30.03.2020  16:09:13: ___ Short Enter price = 80583; Stop = 80731; ; Take = 80483;
+;
+30.03.2020  16:09:13: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  16:09:13: ___ Create Short TWO 145 position N: 1358509
+;
+30.03.2020  16:09:13: ___ Short TWO 145 Enter price = 80583; Stop = 80731; ; Take = 80393;
+;
+30.03.2020  16:09:13: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  16:09:13: ___ Create Short THREE 500 position N: 1147999
+;
+30.03.2020  16:09:13: ___ Short THREE 500 Enter price = 80583; Stop = 80731; ; Take = 80083;
+;
+30.03.2020  16:09:19: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  16:09:19: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  16:09:19: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  16:11:22: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  16:11:22: ___ Create Long ONE position N: 1135039
+;
+30.03.2020  16:11:22: ___ Long ONE Enter price = 80698; Stop = 80569; ; Take = 80798;
+30.03.2020  16:11:22: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  16:11:22: ___ Create Long TWO position N: 1389609;
+30.03.2020  16:11:22: ___ Long TWO Enter price = 80698; Stop = 80569; ; Take = 80888;
+30.03.2020  16:11:22: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  16:11:22: ___ Create Long THREE position N: 1182299;
+30.03.2020  16:11:22: ___ Long THREE Enter price = 80698; Stop = 80569; ; Take = 81188;
+30.03.2020  16:11:28: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  16:11:28: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  16:11:28: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  16:13:35: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  16:13:35: ___ Create Short position N: 1174669;
+30.03.2020  16:13:35: ___ Short Enter price = 80593; Stop = 80712; ; Take = 80493;
+;
+30.03.2020  16:13:35: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  16:13:35: ___ Create Short TWO 145 position N: 1317419
+;
+30.03.2020  16:13:35: ___ Short TWO 145 Enter price = 80593; Stop = 80712; ; Take = 80403;
+;
+30.03.2020  16:13:35: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  16:13:35: ___ Create Short THREE 500 position N: 1185909
+;
+30.03.2020  16:13:35: ___ Short THREE 500 Enter price = 80593; Stop = 80712; ; Take = 80093;
+;
+30.03.2020  16:13:42: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  16:13:42: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  16:13:42: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  16:16:15: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  16:16:15: ___ Create Long ONE position N: 1171059
+;
+30.03.2020  16:16:15: ___ Long ONE Enter price = 80685; Stop = 80554; ; Take = 80785;
+30.03.2020  16:16:15: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  16:16:15: ___ Create Long TWO position N: 1351359;
+30.03.2020  16:16:15: ___ Long TWO Enter price = 80685; Stop = 80554; ; Take = 80875;
+30.03.2020  16:16:15: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  16:16:15: ___ Create Long THREE position N: 1130409;
+30.03.2020  16:16:15: ___ Long THREE Enter price = 80680; Stop = 80554; ; Take = 81170;
+30.03.2020  16:16:21: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  16:16:21: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  16:16:21: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  16:25:35: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  16:25:35: ___ Create Short position N: 1101499;
+30.03.2020  16:25:36: ___ Short Enter price = 80656; Stop = 80775; ; Take = 80556;
+;
+30.03.2020  16:25:36: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  16:25:36: ___ Create Short TWO 145 position N: 1309149
+;
+30.03.2020  16:25:36: ___ Short TWO 145 Enter price = 80656; Stop = 80775; ; Take = 80466;
+;
+30.03.2020  16:25:36: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  16:25:36: ___ Create Short THREE 500 position N: 1136449
+;
+30.03.2020  16:25:36: ___ Short THREE 500 Enter price = 80656; Stop = 80775; ; Take = 80156;
+;
+30.03.2020  16:25:42: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  16:25:42: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  16:25:42: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  16:27:16: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  16:32:43: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  16:32:43: ___ Create Long ONE position N: 1114739
+;
+30.03.2020  16:32:43: ___ Long ONE Enter price = 80704; Stop = 80545; ; Take = 80804;
+30.03.2020  16:32:43: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  16:32:43: ___ Create Long TWO position N: 1316599;
+30.03.2020  16:32:43: ___ Long TWO Enter price = 80704; Stop = 80545; ; Take = 80894;
+30.03.2020  16:32:43: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  16:32:43: ___ Create Long THREE position N: 1198869;
+30.03.2020  16:32:43: ___ Long THREE Enter price = 80704; Stop = 80545; ; Take = 81194;
+30.03.2020  16:32:49: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  16:32:49: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  16:39:08: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  16:42:17: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  16:50:54: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  16:50:54: ___ Create Short position N: 1144579;
+30.03.2020  16:50:54: ___ Short Enter price = 80827; Stop = 81056; ; Take = 80727;
+;
+30.03.2020  16:50:54: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  16:50:54: ___ Create Short TWO 145 position N: 1311909
+;
+30.03.2020  16:50:54: ___ Short TWO 145 Enter price = 80827; Stop = 81056; ; Take = 80637;
+;
+30.03.2020  16:50:54: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  16:50:54: ___ Create Short THREE 500 position N: 1100469
+;
+30.03.2020  16:50:54: ___ Short THREE 500 Enter price = 80827; Stop = 81056; ; Take = 80327;
+;
+30.03.2020  16:51:00: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  17:01:12: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  17:01:12: ___ Create Long ONE position N: 1100899
+;
+30.03.2020  17:01:12: ___ Long ONE Enter price = 80897; Stop = 80763; ; Take = 80997;
+30.03.2020  17:01:12: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  17:01:12: ___ Create Long TWO position N: 1337799;
+30.03.2020  17:01:12: ___ Long TWO Enter price = 80895; Stop = 80763; ; Take = 81085;
+30.03.2020  17:01:12: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  17:01:12: ___ Create Long THREE position N: 1153179;
+30.03.2020  17:01:12: ___ Long THREE Enter price = 80895; Stop = 80763; ; Take = 81385;
+30.03.2020  17:01:19: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  17:01:19: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  17:01:19: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  17:13:50: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  17:13:50: ___ Create Short position N: 1157129;
+30.03.2020  17:13:50: ___ Short Enter price = 80860; Stop = 80988; ; Take = 80760;
+;
+30.03.2020  17:13:50: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  17:13:50: ___ Create Short TWO 145 position N: 1360189
+;
+30.03.2020  17:13:50: ___ Short TWO 145 Enter price = 80860; Stop = 80988; ; Take = 80670;
+;
+30.03.2020  17:13:50: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  17:13:50: ___ Create Short THREE 500 position N: 1160729
+;
+30.03.2020  17:13:50: ___ Short THREE 500 Enter price = 80860; Stop = 80988; ; Take = 80360;
+;
+30.03.2020  17:13:59: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  17:13:59: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  17:13:59: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  17:16:11: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  17:30:01: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  17:30:01: ___ Create Long ONE position N: 1116629
+;
+30.03.2020  17:30:01: ___ Long ONE Enter price = 80797; Stop = 80697; ; Take = 80897;
+30.03.2020  17:30:01: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  17:30:01: ___ Create Long TWO position N: 1366319;
+30.03.2020  17:30:01: ___ Long TWO Enter price = 80797; Stop = 80697; ; Take = 80987;
+30.03.2020  17:30:01: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  17:30:01: ___ Create Long THREE position N: 1145089;
+30.03.2020  17:30:01: ___ Long THREE Enter price = 80797; Stop = 80697; ; Take = 81287;
+30.03.2020  17:30:10: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  17:30:10: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  17:34:02: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  17:34:02: ___ Create Short position N: 1135219;
+30.03.2020  17:34:02: ___ Short Enter price = 80724; Stop = 80838; ; Take = 80624;
+;
+30.03.2020  17:34:02: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  17:34:02: ___ Create Short TWO 145 position N: 1305709
+;
+30.03.2020  17:34:02: ___ Short TWO 145 Enter price = 80724; Stop = 80838; ; Take = 80534;
+;
+30.03.2020  17:34:02: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  17:34:02: ___ Create Short THREE 500 position N: 1160779
+;
+30.03.2020  17:34:02: ___ Short THREE 500 Enter price = 80724; Stop = 80838; ; Take = 80224;
+;
+30.03.2020  17:34:08: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  17:34:08: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  17:34:08: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  17:42:09: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  17:42:09: ___ Create Long ONE position N: 1178339
+;
+30.03.2020  17:42:09: ___ Long ONE Enter price = 80773; Stop = 80681; ; Take = 80873;
+30.03.2020  17:42:09: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  17:42:09: ___ Create Long TWO position N: 1380269;
+30.03.2020  17:42:09: ___ Long TWO Enter price = 80773; Stop = 80681; ; Take = 80963;
+30.03.2020  17:42:09: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  17:42:09: ___ Create Long THREE position N: 1151999;
+30.03.2020  17:42:09: ___ Long THREE Enter price = 80773; Stop = 80681; ; Take = 81263;
+30.03.2020  17:42:15: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  17:42:15: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  17:42:15: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  17:46:54: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  17:46:54: ___ Create Short position N: 1130199;
+30.03.2020  17:46:54: ___ Short Enter price = 80704; Stop = 80810; ; Take = 80604;
+;
+30.03.2020  17:46:54: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  17:46:54: ___ Create Short TWO 145 position N: 1387609
+;
+30.03.2020  17:46:54: ___ Short TWO 145 Enter price = 80704; Stop = 80810; ; Take = 80514;
+;
+30.03.2020  17:46:54: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  17:46:54: ___ Create Short THREE 500 position N: 1172679
+;
+30.03.2020  17:46:54: ___ Short THREE 500 Enter price = 80708; Stop = 80810; ; Take = 80208;
+;
+30.03.2020  17:47:00: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  17:47:01: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  17:47:01: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  17:51:14: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  17:51:14: ___ Create Long ONE position N: 1195599
+;
+30.03.2020  17:51:14: ___ Long ONE Enter price = 80769; Stop = 80671; ; Take = 80869;
+30.03.2020  17:51:14: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  17:51:14: ___ Create Long TWO position N: 1392589;
+30.03.2020  17:51:14: ___ Long TWO Enter price = 80769; Stop = 80671; ; Take = 80959;
+30.03.2020  17:51:14: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  17:51:14: ___ Create Long THREE position N: 1153949;
+30.03.2020  17:51:14: ___ Long THREE Enter price = 80769; Stop = 80671; ; Take = 81259;
+30.03.2020  17:51:21: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  17:51:21: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  17:51:21: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  17:59:18: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  17:59:18: ___ Create Short position N: 1114239;
+30.03.2020  17:59:18: ___ Short Enter price = 80748; Stop = 80824; ; Take = 80648;
+;
+30.03.2020  17:59:18: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  17:59:18: ___ Create Short TWO 145 position N: 1346219
+;
+30.03.2020  17:59:18: ___ Short TWO 145 Enter price = 80748; Stop = 80824; ; Take = 80558;
+;
+30.03.2020  17:59:18: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  17:59:18: ___ Create Short THREE 500 position N: 1123539
+;
+30.03.2020  17:59:18: ___ Short THREE 500 Enter price = 80742; Stop = 80824; ; Take = 80242;
+;
+30.03.2020  17:59:25: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  17:59:25: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  17:59:25: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  18:02:40: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  18:02:40: ___ Create Long ONE position N: 1186239
+;
+30.03.2020  18:02:40: ___ Long ONE Enter price = 80806; Stop = 80701; ; Take = 80906;
+30.03.2020  18:02:40: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  18:02:40: ___ Create Long TWO position N: 1320969;
+30.03.2020  18:02:40: ___ Long TWO Enter price = 80806; Stop = 80701; ; Take = 80996;
+30.03.2020  18:02:40: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  18:02:40: ___ Create Long THREE position N: 1177979;
+30.03.2020  18:02:40: ___ Long THREE Enter price = 80806; Stop = 80701; ; Take = 81296;
+30.03.2020  18:02:50: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  18:02:56: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  18:02:56: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  18:05:40: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  18:12:23: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  18:12:23: ___ Create Short position N: 1184379;
+30.03.2020  18:12:23: ___ Short Enter price = 80847; Stop = 80972; ; Take = 80747;
+;
+30.03.2020  18:12:23: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  18:12:23: ___ Create Short TWO 145 position N: 1399689
+;
+30.03.2020  18:12:23: ___ Short TWO 145 Enter price = 80847; Stop = 80972; ; Take = 80657;
+;
+30.03.2020  18:12:23: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  18:12:23: ___ Create Short THREE 500 position N: 1199979
+;
+30.03.2020  18:12:23: ___ Short THREE 500 Enter price = 80847; Stop = 80972; ; Take = 80347;
+;
+30.03.2020  18:12:29: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  18:12:30: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  18:12:48: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  18:12:48: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  18:12:48: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  18:12:48: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  18:12:48: ___ Create Short position N: 1161159;
+30.03.2020  18:12:48: ___ Short Enter price = 80887; Stop = 80972; ; Take = 80787;
+;
+30.03.2020  18:12:48: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  18:12:48: ___ Create Short TWO 145 position N: 1339249
+;
+30.03.2020  18:12:48: ___ Short TWO 145 Enter price = 80887; Stop = 80972; ; Take = 80697;
+;
+30.03.2020  18:12:48: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  18:12:48: ___ Create Short THREE 500 position N: 1126629
+;
+30.03.2020  18:12:48: ___ Short THREE 500 Enter price = 80887; Stop = 80972; ; Take = 80387;
+;
+30.03.2020  18:13:00: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  18:13:00: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  18:13:00: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  18:17:31: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  18:17:31: ___ Create Long ONE position N: 1129739
+;
+30.03.2020  18:17:31: ___ Long ONE Enter price = 80918; Stop = 80817; ; Take = 81018;
+30.03.2020  18:17:31: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  18:17:31: ___ Create Long TWO position N: 1384029;
+30.03.2020  18:17:31: ___ Long TWO Enter price = 80918; Stop = 80817; ; Take = 81108;
+30.03.2020  18:17:31: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  18:17:31: ___ Create Long THREE position N: 1102379;
+30.03.2020  18:17:31: ___ Long THREE Enter price = 80918; Stop = 80817; ; Take = 81408;
+30.03.2020  18:18:14: ___ Robot stoped!;
+30.03.2020  18:23:06: ___ Writer activated;
+30.03.2020  18:23:09: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  18:23:09: ___ Create Short position N: 1100129;
+30.03.2020  18:23:09: ___ Short Enter price = 80842; Stop = 80915; ; Take = 80742;
+;
+30.03.2020  18:23:09: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  18:23:09: ___ Create Short TWO 145 position N: 1356369
+;
+30.03.2020  18:23:09: ___ Short TWO 145 Enter price = 80842; Stop = 80915; ; Take = 80652;
+;
+30.03.2020  18:23:09: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  18:23:09: ___ Create Short THREE 500 position N: 1119339
+;
+30.03.2020  18:23:09: ___ Short THREE 500 Enter price = 80842; Stop = 80915; ; Take = 80342;
+;
+30.03.2020  18:23:34: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  18:23:34: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  18:23:34: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  18:23:45: ___ Robot stoped!;
+30.03.2020  18:23:59: ___ Writer activated;
+30.03.2020  18:25:07: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  18:25:07: ___ Create Long ONE position N: 1100129
+;
+30.03.2020  18:25:07: ___ Long ONE Enter price = 80946; Stop = 80835; ; Take = 81046;
+30.03.2020  18:25:07: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  18:25:07: ___ Create Long TWO position N: 1356369;
+30.03.2020  18:25:07: ___ Long TWO Enter price = 80946; Stop = 80835; ; Take = 81136;
+30.03.2020  18:25:07: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  18:25:07: ___ Create Long THREE position N: 1119339;
+30.03.2020  18:25:07: ___ Long THREE Enter price = 80946; Stop = 80835; ; Take = 81436;
+30.03.2020  18:28:27: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  18:28:27: ___ Create Short position N: 1180889;
+30.03.2020  18:28:27: ___ Short Enter price = 80857; Stop = 80984; ; Take = 80757;
+;
+30.03.2020  18:28:27: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  18:28:27: ___ Create Short TWO 145 position N: 1358509
+;
+30.03.2020  18:28:27: ___ Short TWO 145 Enter price = 80857; Stop = 80984; ; Take = 80667;
+;
+30.03.2020  18:28:27: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  18:28:27: ___ Create Short THREE 500 position N: 1147999
+;
+30.03.2020  18:28:27: ___ Short THREE 500 Enter price = 80857; Stop = 80984; ; Take = 80357;
+;
+30.03.2020  18:28:33: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  18:28:33: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  18:28:33: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  18:32:41: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  18:32:41: ___ Create Long ONE position N: 1135039
+;
+30.03.2020  18:32:41: ___ Long ONE Enter price = 80943; Stop = 80829; ; Take = 81043;
+30.03.2020  18:32:41: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  18:32:41: ___ Create Long TWO position N: 1389609;
+30.03.2020  18:32:41: ___ Long TWO Enter price = 80943; Stop = 80829; ; Take = 81133;
+30.03.2020  18:32:41: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  18:32:41: ___ Create Long THREE position N: 1182299;
+30.03.2020  18:32:41: ___ Long THREE Enter price = 80943; Stop = 80829; ; Take = 81433;
+30.03.2020  18:32:47: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  18:32:47: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  18:32:47: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  18:36:56: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  18:43:41: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  18:43:41: ___ Create Short position N: 1174669;
+30.03.2020  18:43:41: ___ Short Enter price = 80959; Stop = 81081; ; Take = 80859;
+;
+30.03.2020  18:43:41: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  18:43:41: ___ Create Short TWO 145 position N: 1317419
+;
+30.03.2020  18:43:41: ___ Short TWO 145 Enter price = 80959; Stop = 81081; ; Take = 80769;
+;
+30.03.2020  18:43:41: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  18:43:41: ___ Create Short THREE 500 position N: 1185909
+;
+30.03.2020  18:43:41: ___ Short THREE 500 Enter price = 80959; Stop = 81081; ; Take = 80459;
+;
+30.03.2020  18:43:57: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  18:43:57: ___ Delete position from active dictionary position: long_position_500;
+30.03.2020  19:00:09: ___ Delete position from active dictionary position: short_position_one;
+30.03.2020  19:11:02: ___ Delete position from active dictionary position: short_position_145;
+30.03.2020  19:17:56: ___ Long_ONE position not in active dictionary. Set it. Set new last_min;
+30.03.2020  19:17:57: ___ Create Long ONE position N: 1171059
+;
+30.03.2020  19:17:57: ___ Long ONE Enter price = 80836; Stop = 80721; ; Take = 80936;
+30.03.2020  19:17:57: ___ Long position_TWO 145 not in active dictionary. Set it. Set new last_min;
+30.03.2020  19:17:57: ___ Create Long TWO position N: 1351359;
+30.03.2020  19:17:57: ___ Long TWO Enter price = 80836; Stop = 80721; ; Take = 81026;
+30.03.2020  19:17:57: ___ Long position_THREE 500 not in active dictionary. Set it. Set new last_min;
+30.03.2020  19:17:57: ___ Create Long THREE position N: 1130409;
+30.03.2020  19:17:57: ___ Long THREE Enter price = 80836; Stop = 80721; ; Take = 81326;
+30.03.2020  19:18:03: ___ Delete position from active dictionary position: short_position_500;
+30.03.2020  19:25:47: ___ Short position not in active dictionary. Set it. Set new last_max
+;
+30.03.2020  19:25:47: ___ Create Short position N: 1101499;
+30.03.2020  19:25:47: ___ Short Enter price = 80792; Stop = 80895; ; Take = 80692;
+;
+30.03.2020  19:25:47: ___ Short position_TWO 145 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  19:25:47: ___ Create Short TWO 145 position N: 1309149
+;
+30.03.2020  19:25:47: ___ Short TWO 145 Enter price = 80792; Stop = 80895; ; Take = 80602;
+;
+30.03.2020  19:25:47: ___ Short position_THREE 500 not in active dictionary. Set it. Set new last_min
+;
+30.03.2020  19:25:47: ___ Create Short THREE 500 position N: 1136449
+;
+30.03.2020  19:25:47: ___ Short THREE 500 Enter price = 80792; Stop = 80895; ; Take = 80292;
+;
+30.03.2020  19:25:58: ___ Delete position from active dictionary position: long_position_one;
+30.03.2020  19:25:58: ___ Delete position from active dictionary position: long_position_145;
+30.03.2020  19:25:58: ___ Delete position from active dictionary position: long_position_500;

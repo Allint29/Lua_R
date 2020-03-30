@@ -196,7 +196,7 @@ function Startegy_parabolic:new(strategyTable)
 								--enter_price= last2 + 2,
 								slippage=3,
 								stop_loss=20, 
-								take_profit=60, 
+								take_profit=100, 
 								use_stop=true,
 								use_take=true,
 								market_type="reverse",
@@ -225,7 +225,36 @@ function Startegy_parabolic:new(strategyTable)
 								--enter_price= last2 + 2,
 								slippage=3,
 								stop_loss=20, 
-								take_profit=125, 
+								take_profit=190, 
+								use_stop=true,
+								use_take=true,
+								market_type="reverse",
+								--отступ от цены входа для того чтобы не покупать по худшим ценам в шагах цены
+								price_offset = 2,
+								--время после которого нужно проверять наличие ордеров в словаре ордеров
+								begin_check_self_open = 4, --открывающая сторона
+								begin_check_self_close = 4 --закрывающая сторона					
+								
+								})
+	end
+	
+	function private_func:create_long_reverse_position500()
+		local last2 = tonumber(getParamEx(private.class, private.security, "LAST").param_value)
+		--r = os.time()^-string.len(tostring(os.time()))
+		return Position:new({
+								id_position=tostring(private_func.generate_new_name_of_position({begin_num=10000, end_num=20000})),
+								account=private.account,
+								class=private.class, 
+								security=private.security,
+								security_info=private.security_info,
+								lot=1,   
+								side="b", 
+								enter_price= last2 - 2, 
+								--side="s",
+								--enter_price= last2 + 2,
+								slippage=3,
+								stop_loss=30, 
+								take_profit=490, 
 								use_stop=true,
 								use_take=true,
 								market_type="reverse",
@@ -254,7 +283,7 @@ function Startegy_parabolic:new(strategyTable)
 								enter_price= last2 + 2,
 								slippage=3,
 								stop_loss=20, 
-								take_profit=60, 
+								take_profit=100, 
 								use_stop=true,
 								use_take=true,
 								market_type="reverse",
@@ -283,7 +312,36 @@ function Startegy_parabolic:new(strategyTable)
 								enter_price= last2 + 2,
 								slippage=3,
 								stop_loss=20, 
-								take_profit=125, 
+								take_profit=190, 
+								use_stop=true,
+								use_take=true,
+								market_type="reverse",
+								--отступ от цены входа для того чтобы не покупать по худшим ценам в шагах цены
+								price_offset = 2,
+								--время после которого нужно проверять наличие ордеров в словаре ордеров
+								begin_check_self_open = 4, --открывающая сторона
+								begin_check_self_close = 4 --закрывающая сторона					
+								
+								})
+	end	
+	
+	function private_func:create_short_reverse_position500()
+		local last2 = tonumber(getParamEx(private.class, private.security, "LAST").param_value)
+		
+		return Position:new({
+								id_position=tostring(private_func.generate_new_name_of_position({begin_num=10000, end_num=20000})),
+								account=private.account,
+								class=private.class, 
+								security=private.security,
+								security_info=private.security_info,
+								lot=1,   
+								--side="b", 
+								--enter_price= last2 - 2, 
+								side="s",
+								enter_price= last2 + 2,
+								slippage=3,
+								stop_loss=30, 
+								take_profit=500, 
 								use_stop=true,
 								use_take=true,
 								market_type="reverse",
@@ -498,16 +556,20 @@ function Startegy_parabolic:new(strategyTable)
 		return _res
 	end	
 		
-	function private_func:fill_startegy_table()
+	function private_func:fill_startegy_table() --format self{signal_check = table}
 		--count open volume in position
 		local first_long_pos = "long_position_one"
 		local target_first_long = "S:0;T;0"
 		local second_long_pos = "long_position_145"
 		local target_second_long = "S:0;T;0"
+		local third_long_pos = "long_position_500"
+		local target_third_long = "S:0;T;0"
 		local first_short_pos = "short_position_one"
 		local target_first_short = "S:0;T;0"
 		local second_short_pos = "short_position_145"
 		local target_second_short = "S:0;T;0"
+		local third_short_pos = "short_position_500"
+		local target_third_short = "S:0;T;0"
 		
 		for key, value in pairs (private.active_positions) do
 			if (key == first_long_pos) then 
@@ -518,6 +580,10 @@ function Startegy_parabolic:new(strategyTable)
 				second_long_pos = tostring(value.get_delta_lot_of_position()).."L_2:"..tostring(value.get_enter_price())
 				target_second_long = "S:"..tostring(value.get_stoploss_price())..";T:"..tostring(value.get_takeprofit_price())	
 			end
+			if (key == third_long_pos) then 
+				third_long_pos = tostring(value.get_delta_lot_of_position()).."L_3:"..tostring(value.get_enter_price())
+				target_third_long = "S:"..tostring(value.get_stoploss_price())..";T:"..tostring(value.get_takeprofit_price())	
+			end
 			if (key == first_short_pos) then 
 				first_short_pos = "-"..tostring(value.get_delta_lot_of_position()).."S_1:"..tostring(value.get_enter_price())
 				target_first_short = "S:"..tostring(value.get_stoploss_price())..";T:"..tostring(value.get_takeprofit_price())	
@@ -526,13 +592,17 @@ function Startegy_parabolic:new(strategyTable)
 				second_short_pos = "-"..tostring(value.get_delta_lot_of_position()).."S_2:"..tostring(value.get_enter_price())
 				target_second_short = "S:"..tostring(value.get_stoploss_price())..";T:"..tostring(value.get_takeprofit_price())	
 			end
+			if (key == third_short_pos) then 
+				third_short_pos = "-"..tostring(value.get_delta_lot_of_position()).."S_3:"..tostring(value.get_enter_price())
+				target_third_short = "S:"..tostring(value.get_stoploss_price())..";T:"..tostring(value.get_takeprofit_price())	
+			end
 		end
 		
 		--Info to visual table
 		private.main_writer.WriteToConsole({mes="market_side", column=7, row=1})
-		private.main_writer.WriteToConsole({mes=signal_check.mes, column=7, row=2})
+		private.main_writer.WriteToConsole({mes=self.signal_check.mes, column=7, row=2})
 		private.main_writer.WriteToConsole({mes="signal bar", column=8, row=1})
-		private.main_writer.WriteToConsole({mes=tostring(signal_check.signal_bar), column=8, row=2})
+		private.main_writer.WriteToConsole({mes=tostring(self.signal_check.signal_bar), column=8, row=2})
 		private.main_writer.WriteToConsole({mes=first_long_pos, column=9, row=1})
 		private.main_writer.WriteToConsole({mes=target_first_long, column=9, row=2})
 		private.main_writer.WriteToConsole({mes="Open", column=9, row=3})
@@ -540,12 +610,18 @@ function Startegy_parabolic:new(strategyTable)
 		private.main_writer.WriteToConsole({mes=second_long_pos, column=10, row=1})
 		private.main_writer.WriteToConsole({mes=target_second_long, column=10, row=2})
 		
-		private.main_writer.WriteToConsole({mes=first_short_pos, column=11, row=1})
-		private.main_writer.WriteToConsole({mes=target_first_short, column=11, row=2})
-		private.main_writer.WriteToConsole({mes="Close", column=11, row=3})
+		private.main_writer.WriteToConsole({mes=third_long_pos, column=11, row=1})
+		private.main_writer.WriteToConsole({mes=target_third_long, column=11, row=2})
 		
-		private.main_writer.WriteToConsole({mes=second_short_pos, column=12, row=1})
-		private.main_writer.WriteToConsole({mes=target_second_short, column=12, row=2})
+		private.main_writer.WriteToConsole({mes=first_short_pos, column=12, row=1})
+		private.main_writer.WriteToConsole({mes=target_first_short, column=12, row=2})
+		private.main_writer.WriteToConsole({mes="Close", column=12, row=3})
+		
+		private.main_writer.WriteToConsole({mes=second_short_pos, column=13, row=1})
+		private.main_writer.WriteToConsole({mes=target_second_short, column=13, row=2})
+		
+		private.main_writer.WriteToConsole({mes=third_short_pos, column=14, row=1})
+		private.main_writer.WriteToConsole({mes=target_third_short, column=14, row=2})
 		--------------------------	
 	end
 
@@ -611,6 +687,8 @@ function Startegy_parabolic:new(strategyTable)
 				private.take_new_position_manualy = false
 				local name_position_one = ""
 				local name_position_two = ""
+				local name_position_three = ""
+				
 				if (signal_check.long_side == true) then
 					--private.main_writer.WriteToEndOfFile({mes="Now signal bar And LONG situation".."\n"})
 					
@@ -659,6 +737,28 @@ function Startegy_parabolic:new(strategyTable)
 					end		
 					---------------------------------------------------------
 					
+					--Position LONG two take 500steps-----------------------
+					name_position_three = "long_position_500"
+					local is_position_long_three = false
+					for key, value in pairs(private.active_positions) do						
+						if (key == name_position_three) then is_position_long_three = true end
+					end
+					if (is_position_long_three == false) then
+						--if not active long position open it
+						private.main_writer.WriteToEndOfFile({mes="Long position_THREE 500 not in active dictionary. Set it. Set new last_min"})
+						--------------------------------------------
+						private.active_positions[name_position_three] = private_func.create_long_reverse_position500()
+						private.main_writer.WriteToEndOfFile({mes="Create Long THREE position N: "..tostring(private.active_positions[name_position_three].get_id_position())})
+						private.active_positions[name_position_three].ActivatePosition()	
+						--insert new stop
+						private.active_positions[name_position_three].make_new_stop(private.cash_minimum["last_min"])
+						private.main_writer.WriteToEndOfFile({mes="Long THREE Enter price = "..tostring(private.active_positions[name_position_three].get_enter_price())..
+								"; Stop = "..tostring(private.active_positions[name_position_three].get_stoploss_price()).."; "..
+								"; Take = "..tostring(private.active_positions[name_position_three].get_takeprofit_price())})
+						-------------------------------------------						
+					end		
+					---------------------------------------------------------
+					
 				elseif (signal_check.long_side == false) then
 					--private.main_writer.WriteToEndOfFile({mes="Now signal bar And SHORT situation".."\n"})
 					
@@ -691,20 +791,41 @@ function Startegy_parabolic:new(strategyTable)
 					end
 					if (is_position_short_two == false) then
 						--if not active long position open it
-						private.main_writer.WriteToEndOfFile({mes="Long position_TWO 145 not in active dictionary. Set it. Set new last_min".."\n"})
+						private.main_writer.WriteToEndOfFile({mes="Short position_TWO 145 not in active dictionary. Set it. Set new last_min".."\n"})
 						--------------------------------------------
 						private.active_positions[name_position_two] = private_func.create_short_reverse_position145()
-						private.main_writer.WriteToEndOfFile({mes="Create Long TWO 145 position N: "..tostring(private.active_positions[name_position_two].get_id_position()).."\n"})
+						private.main_writer.WriteToEndOfFile({mes="Create Short TWO 145 position N: "..tostring(private.active_positions[name_position_two].get_id_position()).."\n"})
 						private.active_positions[name_position_two].ActivatePosition()	
 						--insert new stop
 						private.active_positions[name_position_two].make_new_stop(private.cash_maximum["last_max"])
-						private.main_writer.WriteToEndOfFile({mes="Long TWO 145 Enter price = "..tostring(private.active_positions[name_position_two].get_enter_price())..
+						private.main_writer.WriteToEndOfFile({mes="Short TWO 145 Enter price = "..tostring(private.active_positions[name_position_two].get_enter_price())..
 								"; Stop = "..tostring(private.active_positions[name_position_two].get_stoploss_price()).."; "..
 								"; Take = "..tostring(private.active_positions[name_position_two].get_takeprofit_price())..";\n"})
 						-------------------------------------------						
 					end		
 					-----------------------------------------------------------
-					
+
+					--Position two take 500steps-----------------------
+					name_position_three = "short_position_500"
+					local is_position_short_three = false
+					for key, value in pairs(private.active_positions) do						
+						if (key == name_position_three) then is_position_short_three = true end
+					end
+					if (is_position_short_three == false) then
+						--if not active long position open it
+						private.main_writer.WriteToEndOfFile({mes="Short position_THREE 500 not in active dictionary. Set it. Set new last_min".."\n"})
+						--------------------------------------------
+						private.active_positions[name_position_three] = private_func.create_short_reverse_position500()
+						private.main_writer.WriteToEndOfFile({mes="Create Short THREE 500 position N: "..tostring(private.active_positions[name_position_three].get_id_position()).."\n"})
+						private.active_positions[name_position_three].ActivatePosition()	
+						--insert new stop
+						private.active_positions[name_position_three].make_new_stop(private.cash_maximum["last_max"])
+						private.main_writer.WriteToEndOfFile({mes="Short THREE 500 Enter price = "..tostring(private.active_positions[name_position_three].get_enter_price())..
+								"; Stop = "..tostring(private.active_positions[name_position_three].get_stoploss_price()).."; "..
+								"; Take = "..tostring(private.active_positions[name_position_three].get_takeprofit_price())..";\n"})
+						-------------------------------------------						
+					end		
+					-----------------------------------------------------------					
 					
 				else
 					message("check_market(): ERROR signal_check.long_side NOT true and NOT false!!!\n")
@@ -736,7 +857,7 @@ function Startegy_parabolic:new(strategyTable)
 			--private.main_writer.WriteToEndOfFile({mes="...".."\n"})
 		end
 		
-		private_func.fill_startegy_table()
+		private_func.fill_startegy_table({signal_check = signal_check})
 		
 		is_run = private.strategy_table.actionOnTable()
 		
