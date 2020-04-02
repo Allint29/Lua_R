@@ -196,7 +196,7 @@ function Startegy_parabolic:new(strategyTable)
 								--enter_price= last2 + 2,
 								slippage=3,
 								stop_loss=20, 
-								take_profit=100, 
+								take_profit=80, 
 								use_stop=true,
 								use_take=true,
 								market_type="reverse",
@@ -225,7 +225,7 @@ function Startegy_parabolic:new(strategyTable)
 								--enter_price= last2 + 2,
 								slippage=3,
 								stop_loss=20, 
-								take_profit=190, 
+								take_profit=140, 
 								use_stop=true,
 								use_take=true,
 								market_type="reverse",
@@ -254,7 +254,7 @@ function Startegy_parabolic:new(strategyTable)
 								--enter_price= last2 + 2,
 								slippage=3,
 								stop_loss=30, 
-								take_profit=490, 
+								take_profit=250, 
 								use_stop=true,
 								use_take=true,
 								market_type="reverse",
@@ -283,7 +283,7 @@ function Startegy_parabolic:new(strategyTable)
 								enter_price= last2 + 2,
 								slippage=3,
 								stop_loss=20, 
-								take_profit=100, 
+								take_profit=60, 
 								use_stop=true,
 								use_take=true,
 								market_type="reverse",
@@ -312,7 +312,7 @@ function Startegy_parabolic:new(strategyTable)
 								enter_price= last2 + 2,
 								slippage=3,
 								stop_loss=20, 
-								take_profit=190, 
+								take_profit=140, 
 								use_stop=true,
 								use_take=true,
 								market_type="reverse",
@@ -341,7 +341,7 @@ function Startegy_parabolic:new(strategyTable)
 								enter_price= last2 + 2,
 								slippage=3,
 								stop_loss=30, 
-								take_profit=500, 
+								take_profit=250, 
 								use_stop=true,
 								use_take=true,
 								market_type="reverse",
@@ -362,7 +362,11 @@ function Startegy_parabolic:new(strategyTable)
 		local _signal_bar = nil
 		local _bar = nil
 		local _indicator = nil
+		local _virtual_indicator_delta = nil
 		local _mes = ""	
+		
+		local _long_dobor2_signalbar = nil
+		local _short_dobor2_signalbar = nil
 		
 		if _is_active.result == false then 
 			return {long_side = _long_side, --nil
@@ -388,13 +392,21 @@ function Startegy_parabolic:new(strategyTable)
         if (c_n_indicator~=2 or c_n_price~=2)then			
 			_long_side = nil
 			_signal_bar = nil
-			_mes = "Count candles of price or indicator ~= 2"
-		else		
+			_bar = nil
+			_indicator = nil
+			_long_dobor2_signalbar = nil
+			_short_dobor2_signalbar = nil
+			_mes = "Count candles of price or indicator ~= 3"
+		else
+
 			if(t_c_indicator[0] ~=nil and t_c_price[0] ~=nil)then
-				local virtual_indicator_delta = math.abs((t_c_indicator[0].close - t_c_indicator[1].close)/2)
+				_virtual_indicator_delta = math.abs((t_c_indicator[0].close - t_c_indicator[1].close)/2)
 				
-				if(t_c_indicator[0].close < t_c_price[0].close and (t_c_indicator[0].close + virtual_indicator_delta) > last_price)then
-				--переворот из лонга в шорт: текущая цена опустилась ниже индикатора на прошлом баре
+				if(t_c_indicator[0].close < t_c_price[0].close and (t_c_indicator[0].close + _virtual_indicator_delta) > last_price) 
+				--	or
+				--  (t_c_indicator[1].close < t_c_price[1].close and t_c_indicator[0].close > t_c_price[0].close) 
+				  then
+				--переворот из лонга в шорт: текущая цена опустилась ниже индикатора на прошлом баре или если не успел отрыться на прошлом баре то вхожу с опозданием
 				--нужно записать этот бар как сигнальный в словарь с сигнальными данными
 				--и вернуть что ситуация шортовая
 				
@@ -403,8 +415,11 @@ function Startegy_parabolic:new(strategyTable)
 					_mes = "Signal bar to short position"
 					private.signal_bars[os.date("%x %X", os.time(t_c_price[0].datetime))] = {side="short"}	
 					
-				elseif(t_c_indicator[0].close > t_c_price[0].close and (t_c_indicator[0].close - virtual_indicator_delta) < last_price)then	
-				--переворот из шорта в лонг: текущая цена поднялась выше индикатора на прошлом баре
+				elseif(t_c_indicator[0].close > t_c_price[0].close and (t_c_indicator[0].close - _virtual_indicator_delta) < last_price)
+				--		or
+				--	(t_c_indicator[1].close > t_c_price[1].close and t_c_indicator[0].close < t_c_price[0].close) 
+					then	
+				--переворот из шорта в лонг: текущая цена поднялась выше индикатора на прошлом баре или если не успел отрыться на прошлом баре то вхожу с опозданием
 				--нужно записать этот бар как сигнальный в словарь с сигнальными данными
 				--и вернуть что ситуация лонговая	
 				
@@ -434,12 +449,75 @@ function Startegy_parabolic:new(strategyTable)
 				_signal_bar = nil
 				_mes = "Last indicator bar is nil"				
 			end			
+			
+			--проверка на наличие сигнального бара в списке сигнальных баров и корректровка выходных данных
+			for key, value in pairs(private.signal_bars) do		
+				private.main_writer.WriteToConsole({mes="in dict signal:", column=20, row=1})
+				private.main_writer.WriteToConsole({mes="No signal bar", column=20, row=2})			
+				if (key == os.date("%x %X", os.time(t_c_price[0].datetime))) then 
+					if (value.side == "long") then
+						private.main_writer.WriteToConsole({mes="in dict signal:", column=20, row=1})
+						private.main_writer.WriteToConsole({mes="long signal bar", column=20, row=2})
+						_long_side = true
+						_signal_bar = true		
+					elseif (value.side == "short") then
+						private.main_writer.WriteToConsole({mes="in dict signal:", column=20, row=1})
+						private.main_writer.WriteToConsole({mes="short signal bar", column=20, row=2})		
+						_long_side = false
+						_signal_bar = true						
+					end
+				end
+			end			
+			
+			
+			
+			---------------------------------------
+			_short_dobor2_signalbar = false
+			_long_dobor2_signalbar = false
+			private.main_writer.WriteToConsole({mes="Signal to dobor", column=20, row=3})
+			private.main_writer.WriteToConsole({mes="NOT", column=20, row=4})	
+			--Добор рядом с индикатором в лонг:
+			--Должны быть не сигнальный бар
+			--Должно быть несколько подряд баров в данном направлении торговли
+			--Цена должна быть в коридоре позволяющим купить
+			if(_signal_bar == false and 
+				_long_side == true and 
+				--t_c_indicator[2].close < t_c_price[2].close and --третий бар от текущей цены
+				t_c_indicator[1].close < t_c_price[1].close and --второй бар от текущей цены
+				t_c_indicator[0].close < t_c_price[0].close and --первый бар от текущуй цены
+				(t_c_indicator[0].close + _virtual_indicator_delta) < last_price and --текущая цена ниже виртуального расчитанного индикатора
+				(t_c_indicator[0].close + _virtual_indicator_delta) + 25 > last_price) --текущая цена ниже границы индикатора + 15р 
+				then				
+				_long_dobor2_signalbar = true
+				private.main_writer.WriteToConsole({mes="Signal to dobor", column=20, row=3})
+				private.main_writer.WriteToConsole({mes="long dobor", column=20, row=4})					
+			end
+			
+			--Добор рядом с индикатором в шорт:
+			--Должны быть не сигнальный бар
+			--Должно быть несколько подряд баров в данном направлении торговли
+			--Цена должна быть в коридоре позволяющим купить
+			if(_signal_bar == false and 
+				_long_side == false and 
+				--t_c_indicator[2].close > t_c_price[2].close and --третий бар от текущей цены
+				t_c_indicator[1].close > t_c_price[1].close and --второй бар от текущей цены
+				t_c_indicator[0].close > t_c_price[0].close and --первый бар от текущуй цены
+				(t_c_indicator[0].close - _virtual_indicator_delta) > last_price and --текущая цена выше виртуального расчитанного индикатора
+				(t_c_indicator[0].close - _virtual_indicator_delta) - 25 < last_price) --текущая цена выше границы индикатора - 15р 
+				then
+				_short_dobor2_signalbar = true	
+				private.main_writer.WriteToConsole({mes="Signal to dobor", column=20, row=3})
+				private.main_writer.WriteToConsole({mes="short dobor", column=20, row=4})				
+			end
 		end
 		
 		return {long_side = _long_side, 
-				signal_bar = _signal_bar, 
+				signal_bar = _signal_bar,
+				long_dobor2_signalbar = _long_dobor2_signalbar,
+				short_dobor2_signalbar = _short_dobor2_signalbar,				
 				bar = _bar,
 				indicator = _indicator,
+				virtual_indicator_delta = _virtual_indicator_delta,
 				last_price = last_price,
 				mes = _mes, 
 				id_strategy = private.id_strategy		
@@ -603,25 +681,42 @@ function Startegy_parabolic:new(strategyTable)
 		private.main_writer.WriteToConsole({mes=self.signal_check.mes, column=7, row=2})
 		private.main_writer.WriteToConsole({mes="signal bar", column=8, row=1})
 		private.main_writer.WriteToConsole({mes=tostring(self.signal_check.signal_bar), column=8, row=2})
+		
+		--info position long1
 		private.main_writer.WriteToConsole({mes=first_long_pos, column=9, row=1})
 		private.main_writer.WriteToConsole({mes=target_first_long, column=9, row=2})
-		private.main_writer.WriteToConsole({mes="Open", column=9, row=3})
+		private.main_writer.WriteToConsole({mes="Open_pos", column=9, row=4})
+		private.main_writer.WriteToConsole({mes="Close_pos", column=9, row=5})
 		
-		private.main_writer.WriteToConsole({mes=second_long_pos, column=10, row=1})
-		private.main_writer.WriteToConsole({mes=target_second_long, column=10, row=2})
+		--info position Long2
+		private.main_writer.WriteToConsole({mes=second_long_pos, column=11, row=1})
+		private.main_writer.WriteToConsole({mes=target_second_long, column=11, row=2})
+		private.main_writer.WriteToConsole({mes="Open_pos", column=11, row=4})
+		private.main_writer.WriteToConsole({mes="Close_pos", column=11, row=5})
 		
-		private.main_writer.WriteToConsole({mes=third_long_pos, column=11, row=1})
-		private.main_writer.WriteToConsole({mes=target_third_long, column=11, row=2})
+		--info position long3
+		private.main_writer.WriteToConsole({mes=third_long_pos, column=13, row=1})
+		private.main_writer.WriteToConsole({mes=target_third_long, column=13, row=2})
+		private.main_writer.WriteToConsole({mes="Open_pos", column=13, row=4})
+		private.main_writer.WriteToConsole({mes="Close_pos", column=13, row=5})
 		
-		private.main_writer.WriteToConsole({mes=first_short_pos, column=12, row=1})
-		private.main_writer.WriteToConsole({mes=target_first_short, column=12, row=2})
-		private.main_writer.WriteToConsole({mes="Close", column=12, row=3})
+		--info position short1
+		private.main_writer.WriteToConsole({mes=first_short_pos, column=15, row=1})
+		private.main_writer.WriteToConsole({mes=target_first_short, column=15, row=2})
+		private.main_writer.WriteToConsole({mes="Open_pos", column=15, row=4})
+		private.main_writer.WriteToConsole({mes="Close_pos", column=15, row=5})
 		
-		private.main_writer.WriteToConsole({mes=second_short_pos, column=13, row=1})
-		private.main_writer.WriteToConsole({mes=target_second_short, column=13, row=2})
+		--info position short2
+		private.main_writer.WriteToConsole({mes=second_short_pos, column=17, row=1})
+		private.main_writer.WriteToConsole({mes=target_second_short, column=17, row=2})
+		private.main_writer.WriteToConsole({mes="Open_pos", column=17, row=4})
+		private.main_writer.WriteToConsole({mes="Close_pos", column=17, row=5})
 		
-		private.main_writer.WriteToConsole({mes=third_short_pos, column=14, row=1})
-		private.main_writer.WriteToConsole({mes=target_third_short, column=14, row=2})
+		--info position short3
+		private.main_writer.WriteToConsole({mes=third_short_pos, column=19, row=1})
+		private.main_writer.WriteToConsole({mes=target_third_short, column=19, row=2})
+		private.main_writer.WriteToConsole({mes="Open_pos", column=19, row=4})
+		private.main_writer.WriteToConsole({mes="Close_pos", column=19, row=5})
 		--------------------------	
 	end
 
@@ -678,6 +773,14 @@ function Startegy_parabolic:new(strategyTable)
 			private.active_positions[value] = nil
 			private.main_writer.WriteToEndOfFile({mes="Delete position from active dictionary position: "..tostring(value)})
 		end
+		
+		local name_position_one_long = ""
+		local name_position_two_long = ""
+		local name_position_three_long = ""
+		local name_position_one_short = ""
+		local name_position_two_short = ""
+		local name_position_three_short = ""
+		local stop_price = 0;
 
 		if (is_anti_market_position == false) then		
 			if (signal_check.signal_bar == true or private.take_new_position_manualy == true) then
@@ -685,146 +788,153 @@ function Startegy_parabolic:new(strategyTable)
 				--делаю набор позиции по желанию пользователя неактивной
 				--включить можно только раз				
 				private.take_new_position_manualy = false
-				local name_position_one = ""
-				local name_position_two = ""
-				local name_position_three = ""
 				
 				if (signal_check.long_side == true) then
 					--private.main_writer.WriteToEndOfFile({mes="Now signal bar And LONG situation".."\n"})
+					if (private.cash_minimum["last_min"] < (signal_check.bar.low - (signal_check.bar.high - signal_check.bar.low))) then
+						stop_price = private.cash_minimum["last_min"]
+					else
+						stop_price = (signal_check.bar.low - (signal_check.bar.high - signal_check.bar.low))
+					end
 					
 					--Position one take 60steps-----------------------
-					name_position_one = "long_position_one"					
+					name_position_one_long = "long_position_one"					
 					local is_position_long_one = false
 					for key, value in pairs(private.active_positions) do						
-						if (key == name_position_one) then is_position_long_one = true end
+						if (key == name_position_one_long) then is_position_long_one = true end
 					end
 					
 					if (is_position_long_one == false) then
 						--if not active long position open it
 						private.main_writer.WriteToEndOfFile({mes="Long_ONE position not in active dictionary. Set it. Set new last_min"})
 						--------------------------------------------
-						private.active_positions[name_position_one] = private_func.create_long_reverse_position()
-						private.main_writer.WriteToEndOfFile({mes="Create Long ONE position N: "..tostring(private.active_positions[name_position_one].get_id_position()).."\n"})
-						private.active_positions[name_position_one].ActivatePosition()	
+						private.active_positions[name_position_one_long] = private_func.create_long_reverse_position()
+						private.main_writer.WriteToEndOfFile({mes="Create Long ONE position N: "..tostring(private.active_positions[name_position_one_long].get_id_position()).."\n"})
+						private.active_positions[name_position_one_long].ActivatePosition()	
 						--insert new stop
-						private.active_positions[name_position_one].make_new_stop(private.cash_minimum["last_min"])
-						private.main_writer.WriteToEndOfFile({mes="Long ONE Enter price = "..tostring(private.active_positions[name_position_one].get_enter_price())..
-								"; Stop = "..tostring(private.active_positions[name_position_one].get_stoploss_price()).."; "..
-								"; Take = "..tostring(private.active_positions[name_position_one].get_takeprofit_price())})
+						private.active_positions[name_position_one_long].make_new_stop(stop_price)
+						private.main_writer.WriteToEndOfFile({mes="Long ONE Enter price = "..tostring(private.active_positions[name_position_one_long].get_enter_price())..
+								"; Stop = "..tostring(private.active_positions[name_position_one_long].get_stoploss_price()).."; "..
+								"; Take = "..tostring(private.active_positions[name_position_one_long].get_takeprofit_price())})
 						-------------------------------------------
 						
 					end		
 					
-					--Position LONG two take 145steps-----------------------
-					name_position_two = "long_position_145"
-					local is_position_long_two = false
-					for key, value in pairs(private.active_positions) do						
-						if (key == name_position_two) then is_position_long_two = true end
-					end
-					if (is_position_long_two == false) then
-						--if not active long position open it
-						private.main_writer.WriteToEndOfFile({mes="Long position_TWO 145 not in active dictionary. Set it. Set new last_min"})
-						--------------------------------------------
-						private.active_positions[name_position_two] = private_func.create_long_reverse_position145()
-						private.main_writer.WriteToEndOfFile({mes="Create Long TWO position N: "..tostring(private.active_positions[name_position_two].get_id_position())})
-						private.active_positions[name_position_two].ActivatePosition()	
-						--insert new stop
-						private.active_positions[name_position_two].make_new_stop(private.cash_minimum["last_min"])
-						private.main_writer.WriteToEndOfFile({mes="Long TWO Enter price = "..tostring(private.active_positions[name_position_two].get_enter_price())..
-								"; Stop = "..tostring(private.active_positions[name_position_two].get_stoploss_price()).."; "..
-								"; Take = "..tostring(private.active_positions[name_position_two].get_takeprofit_price())})
-						-------------------------------------------						
-					end		
+					----Position LONG two take 145steps-----------------------
+					--name_position_two_long = "long_position_145"
+					--local is_position_long_two = false
+					--for key, value in pairs(private.active_positions) do						
+					--	if (key == name_position_two_long) then is_position_long_two = true end
+					--end
+					--if (is_position_long_two == false) then
+					--	--if not active long position open it
+					--	private.main_writer.WriteToEndOfFile({mes="Long position_TWO 145 not in active dictionary. Set it. Set new last_min"})
+					--	--------------------------------------------
+					--	private.active_positions[name_position_two_long] = private_func.create_long_reverse_position145()
+					--	private.main_writer.WriteToEndOfFile({mes="Create Long TWO position N: "..tostring(private.active_positions[name_position_two_long].get_id_position())})
+					--	private.active_positions[name_position_two_long].ActivatePosition()	
+					--	--insert new stop
+					--	private.active_positions[name_position_two_long].make_new_stop(stop_price)
+					--	private.main_writer.WriteToEndOfFile({mes="Long TWO Enter price = "..tostring(private.active_positions[name_position_two_long].get_enter_price())..
+					--			"; Stop = "..tostring(private.active_positions[name_position_two_long].get_stoploss_price()).."; "..
+					--			"; Take = "..tostring(private.active_positions[name_position_two_long].get_takeprofit_price())})
+					--	-------------------------------------------						
+					--end		
 					---------------------------------------------------------
 					
-					--Position LONG two take 500steps-----------------------
-					name_position_three = "long_position_500"
-					local is_position_long_three = false
-					for key, value in pairs(private.active_positions) do						
-						if (key == name_position_three) then is_position_long_three = true end
-					end
-					if (is_position_long_three == false) then
-						--if not active long position open it
-						private.main_writer.WriteToEndOfFile({mes="Long position_THREE 500 not in active dictionary. Set it. Set new last_min"})
-						--------------------------------------------
-						private.active_positions[name_position_three] = private_func.create_long_reverse_position500()
-						private.main_writer.WriteToEndOfFile({mes="Create Long THREE position N: "..tostring(private.active_positions[name_position_three].get_id_position())})
-						private.active_positions[name_position_three].ActivatePosition()	
-						--insert new stop
-						private.active_positions[name_position_three].make_new_stop(private.cash_minimum["last_min"])
-						private.main_writer.WriteToEndOfFile({mes="Long THREE Enter price = "..tostring(private.active_positions[name_position_three].get_enter_price())..
-								"; Stop = "..tostring(private.active_positions[name_position_three].get_stoploss_price()).."; "..
-								"; Take = "..tostring(private.active_positions[name_position_three].get_takeprofit_price())})
-						-------------------------------------------						
-					end		
+					----Position LONG three take 500steps-----------------------
+					--name_position_three_long = "long_position_500"
+					--local is_position_long_three = false
+					--for key, value in pairs(private.active_positions) do						
+					--	if (key == name_position_three_long) then is_position_long_three = true end
+					--end
+					--if (is_position_long_three == false) then
+					--	--if not active long position open it
+					--	private.main_writer.WriteToEndOfFile({mes="Long position_THREE 500 not in active dictionary. Set it. Set new last_min"})
+					--	--------------------------------------------
+					--	private.active_positions[name_position_three_long] = private_func.create_long_reverse_position500()
+					--	private.main_writer.WriteToEndOfFile({mes="Create Long THREE position N: "..tostring(private.active_positions[name_position_three_long].get_id_position())})
+					--	private.active_positions[name_position_three_long].ActivatePosition()	
+					--	--insert new stop
+					--	private.active_positions[name_position_three_long].make_new_stop(stop_price)
+					--	private.main_writer.WriteToEndOfFile({mes="Long THREE Enter price = "..tostring(private.active_positions[name_position_three_long].get_enter_price())..
+					--			"; Stop = "..tostring(private.active_positions[name_position_three_long].get_stoploss_price()).."; "..
+					--			"; Take = "..tostring(private.active_positions[name_position_three_long].get_takeprofit_price())})
+					--	-------------------------------------------						
+					--end		
 					---------------------------------------------------------
 					
 				elseif (signal_check.long_side == false) then
 					--private.main_writer.WriteToEndOfFile({mes="Now signal bar And SHORT situation".."\n"})
+					if (private.cash_maximum["last_max"] > (signal_check.bar.high + (signal_check.bar.high - signal_check.bar.low))) then
+						stop_price = private.cash_maximum["last_max"]
+					else
+						stop_price = (signal_check.bar.high + (signal_check.bar.high - signal_check.bar.low))
+					end		
 					
 					--Position one take 60steps-----------------------
-					name_position_one = "short_position_one"
-					local is_position_short_one = false
+					name_position_one_short = "short_position_one"
+					local is_position_short_one_short = false
 					for key, value in pairs(private.active_positions) do				
-						if (key == name_position_one) then is_position_short_one = true end
+						if (key == name_position_one_short) then is_position_short_one_short = true end
 					end
-					if (is_position_short_one == false) then
+					if (is_position_short_one_short == false) then
 						--if not active long position open it
 						private.main_writer.WriteToEndOfFile({mes="Short position not in active dictionary. Set it. Set new last_max".."\n"})
 						--------------------------------------------
-						private.active_positions[name_position_one] = private_func.create_short_reverse_position()
-						private.main_writer.WriteToEndOfFile({mes="Create Short position N: "..tostring(private.active_positions[name_position_one].get_id_position())})
-						private.active_positions[name_position_one].ActivatePosition()	
+						private.active_positions[name_position_one_short] = private_func.create_short_reverse_position()
+						private.main_writer.WriteToEndOfFile({mes="Create Short position N: "..tostring(private.active_positions[name_position_one_short].get_id_position())})
+						private.active_positions[name_position_one_short].ActivatePosition()	
 						--inser new stop						
-						private.active_positions[name_position_one].make_new_stop(private.cash_maximum["last_max"])
-						private.main_writer.WriteToEndOfFile({mes="Short Enter price = "..tostring(private.active_positions[name_position_one].get_enter_price())..
-														"; Stop = "..tostring(private.active_positions[name_position_one].get_stoploss_price()).."; "..
-														"; Take = "..tostring(private.active_positions[name_position_one].get_takeprofit_price())..";\n"})
+						private.active_positions[name_position_one_short].make_new_stop(stop_price)
+						private.main_writer.WriteToEndOfFile({mes="Short Enter price = "..tostring(private.active_positions[name_position_one_short].get_enter_price())..
+														"; Stop = "..tostring(private.active_positions[name_position_one_short].get_stoploss_price()).."; "..
+														"; Take = "..tostring(private.active_positions[name_position_one_short].get_takeprofit_price())..";\n"})
 						-----------------------------------------------								
 					end					
 					
-					--Position two take 145steps-----------------------
-					name_position_two = "short_position_145"
-					local is_position_short_two = false
-					for key, value in pairs(private.active_positions) do						
-						if (key == name_position_two) then is_position_short_two = true end
-					end
-					if (is_position_short_two == false) then
-						--if not active long position open it
-						private.main_writer.WriteToEndOfFile({mes="Short position_TWO 145 not in active dictionary. Set it. Set new last_min".."\n"})
-						--------------------------------------------
-						private.active_positions[name_position_two] = private_func.create_short_reverse_position145()
-						private.main_writer.WriteToEndOfFile({mes="Create Short TWO 145 position N: "..tostring(private.active_positions[name_position_two].get_id_position()).."\n"})
-						private.active_positions[name_position_two].ActivatePosition()	
-						--insert new stop
-						private.active_positions[name_position_two].make_new_stop(private.cash_maximum["last_max"])
-						private.main_writer.WriteToEndOfFile({mes="Short TWO 145 Enter price = "..tostring(private.active_positions[name_position_two].get_enter_price())..
-								"; Stop = "..tostring(private.active_positions[name_position_two].get_stoploss_price()).."; "..
-								"; Take = "..tostring(private.active_positions[name_position_two].get_takeprofit_price())..";\n"})
-						-------------------------------------------						
-					end		
+					----Position two take 145steps-----------------------
+					--name_position_two_short = "short_position_145"
+					--local is_position_short_two_short = false
+					--for key, value in pairs(private.active_positions) do						
+					--	if (key == name_position_two_short) then is_position_short_two_short = true end
+					--end
+					--if (is_position_short_two_short == false) then
+					--	--if not active long position open it
+					--	private.main_writer.WriteToEndOfFile({mes="Short position_TWO 145 not in active dictionary. Set it. Set new last_min".."\n"})
+					--	--------------------------------------------
+					--	private.active_positions[name_position_two_short] = private_func.create_short_reverse_position145()
+					--	private.main_writer.WriteToEndOfFile({mes="Create Short TWO 145 position N: "..tostring(private.active_positions[name_position_two_short].get_id_position()).."\n"})
+					--	private.active_positions[name_position_two_short].ActivatePosition()	
+					--	--insert new stop
+					--	private.active_positions[name_position_two_short].make_new_stop(stop_price)
+					--	private.main_writer.WriteToEndOfFile({mes="Short TWO 145 Enter price = "..tostring(private.active_positions[name_position_two_short].get_enter_price())..
+					--			"; Stop = "..tostring(private.active_positions[name_position_two_short].get_stoploss_price()).."; "..
+					--			"; Take = "..tostring(private.active_positions[name_position_two_short].get_takeprofit_price())..";\n"})
+					--	-------------------------------------------						
+					--end		
 					-----------------------------------------------------------
 
 					--Position two take 500steps-----------------------
-					name_position_three = "short_position_500"
-					local is_position_short_three = false
-					for key, value in pairs(private.active_positions) do						
-						if (key == name_position_three) then is_position_short_three = true end
-					end
-					if (is_position_short_three == false) then
-						--if not active long position open it
-						private.main_writer.WriteToEndOfFile({mes="Short position_THREE 500 not in active dictionary. Set it. Set new last_min".."\n"})
-						--------------------------------------------
-						private.active_positions[name_position_three] = private_func.create_short_reverse_position500()
-						private.main_writer.WriteToEndOfFile({mes="Create Short THREE 500 position N: "..tostring(private.active_positions[name_position_three].get_id_position()).."\n"})
-						private.active_positions[name_position_three].ActivatePosition()	
-						--insert new stop
-						private.active_positions[name_position_three].make_new_stop(private.cash_maximum["last_max"])
-						private.main_writer.WriteToEndOfFile({mes="Short THREE 500 Enter price = "..tostring(private.active_positions[name_position_three].get_enter_price())..
-								"; Stop = "..tostring(private.active_positions[name_position_three].get_stoploss_price()).."; "..
-								"; Take = "..tostring(private.active_positions[name_position_three].get_takeprofit_price())..";\n"})
-						-------------------------------------------						
-					end		
+					--name_position_three_short = "short_position_500"
+					--local is_position_short_three_short = false
+					--for key, value in pairs(private.active_positions) do						
+					--	if (key == name_position_three_short) then is_position_short_three_short = true end
+					--end
+					--if (is_position_short_three_short == false) then
+					--	--if not active long position open it
+					--	private.main_writer.WriteToEndOfFile({mes="Short position_THREE 500 not in active dictionary. Set it. Set new last_min".."\n"})
+					--	--------------------------------------------
+					--	private.active_positions[name_position_three_short] = private_func.create_short_reverse_position500()
+					--	private.main_writer.WriteToEndOfFile({mes="Create Short THREE 500 position N: "..tostring(private.active_positions[name_position_three_short].get_id_position()).."\n"})
+					--	private.active_positions[name_position_three_short].ActivatePosition()	
+					--	--insert new stop
+					--	private.active_positions[name_position_three_short].make_new_stop(stop_price)
+					--	private.main_writer.WriteToEndOfFile({mes="Short THREE 500 Enter price = "..tostring(private.active_positions[name_position_three_short].get_enter_price())..
+					--			"; Stop = "..tostring(private.active_positions[name_position_three_short].get_stoploss_price()).."; "..
+					--			"; Take = "..tostring(private.active_positions[name_position_three_short].get_takeprofit_price())..";\n"})
+					--	-------------------------------------------						
+					--end		
 					-----------------------------------------------------------					
 					
 				else
@@ -842,6 +952,373 @@ function Startegy_parabolic:new(strategyTable)
 			end
 		end
 		
+		
+		--добор третьей позиции у границ индикатора
+
+		if (signal_check.long_side == true and signal_check.long_dobor2_signalbar == true) then
+		--calculate stop			
+
+			stop_price = signal_check.indicator.close + signal_check.virtual_indicator_delta
+			
+			--Position LONG three take 500steps-----------------------
+			name_position_three_long = "long_position_500"
+			local is_position_long_three = false
+			for key, value in pairs(private.active_positions) do						
+				if (key == name_position_three_long) then is_position_long_three = true end
+			end
+			if (is_position_long_three == false) then
+				--if not active long position open it
+				private.main_writer.WriteToEndOfFile({mes="Long position_THREE 500 not in active dictionary. Set it. Set new last_min"})
+				--------------------------------------------
+				private.active_positions[name_position_three_long] = private_func.create_long_reverse_position500()
+				private.main_writer.WriteToEndOfFile({mes="Create Long THREE position N: "..tostring(private.active_positions[name_position_three_long].get_id_position())})
+				private.active_positions[name_position_three_long].ActivatePosition()	
+				--insert new stop
+				private.active_positions[name_position_three_long].make_new_stop(stop_price)
+				private.main_writer.WriteToEndOfFile({mes="Long THREE Enter price = "..tostring(private.active_positions[name_position_three_long].get_enter_price())..
+						"; Stop = "..tostring(private.active_positions[name_position_three_long].get_stoploss_price()).."; "..
+						"; Take = "..tostring(private.active_positions[name_position_three_long].get_takeprofit_price())})
+				-------------------------------------------		
+			--else
+			--	message("Can not open first long position, because it was opened!")					
+			end
+		--else
+		--	message("Can not open first long position, because short side!")
+		end
+
+		if (signal_check.long_side == false and signal_check.short_dobor2_signalbar == true) then
+		--calculate stop			
+
+			stop_price = signal_check.indicator.close - signal_check.virtual_indicator_delta
+			
+
+			--Position two take 500steps-----------------------
+			name_position_three_short = "short_position_500"
+			local is_position_short_three_short = false
+			for key, value in pairs(private.active_positions) do						
+				if (key == name_position_three_short) then is_position_short_three_short = true end
+			end
+			if (is_position_short_three_short == false) then
+				--if not active long position open it
+				private.main_writer.WriteToEndOfFile({mes="Short position_THREE 500 not in active dictionary. Set it. Set new last_min".."\n"})
+				--------------------------------------------
+				private.active_positions[name_position_three_short] = private_func.create_short_reverse_position500()
+				private.main_writer.WriteToEndOfFile({mes="Create Short THREE 500 position N: "..tostring(private.active_positions[name_position_three_short].get_id_position()).."\n"})
+				private.active_positions[name_position_three_short].ActivatePosition()	
+				--insert new stop
+				private.active_positions[name_position_three_short].make_new_stop(stop_price)
+				private.main_writer.WriteToEndOfFile({mes="Short THREE 500 Enter price = "..tostring(private.active_positions[name_position_three_short].get_enter_price())..
+						"; Stop = "..tostring(private.active_positions[name_position_three_short].get_stoploss_price()).."; "..
+						"; Take = "..tostring(private.active_positions[name_position_three_short].get_takeprofit_price())..";\n"})
+				-------------------------------------------		
+			--else
+			--	message("Can not open first long position, because it was opened!")					
+			end
+		--else
+		--	message("Can not open first long position, because short side!")
+		end		
+		
+		--Открытие позиции руками		
+		
+		if (private.strategy_table.get_open_first_long_position_pressed() == true)then
+			--message("Open first long position")
+			
+			if (signal_check.long_side == true) then
+			--calculate stop
+				--indicator = _indicator,
+				if (signal_check.indicator.close > signal_check.bar.close) then
+					
+					stop_price = (signal_check.last_price - (2 * (signal_check.bar.high - signal_check.bar.low)))
+				else
+					stop_price = signal_check.indicator.close
+				end					
+				--Position one take 60steps-----------------------
+				name_position_one_long = "long_position_one"					
+				local is_position_long_one = false
+				for key, value in pairs(private.active_positions) do						
+					if (key == name_position_one_long) then is_position_long_one = true end
+				end
+				
+				if (is_position_long_one == false) then
+					--if not active long position open it
+					private.main_writer.WriteToEndOfFile({mes="Long_ONE by MANUALY position not in active dictionary. Set it. Set new last_min"})
+					--------------------------------------------
+					private.active_positions[name_position_one_long] = private_func.create_long_reverse_position()
+					private.main_writer.WriteToEndOfFile({mes="Create Long ONE by MANUALY position N: "..tostring(private.active_positions[name_position_one_long].get_id_position()).."\n"})
+					private.active_positions[name_position_one_long].ActivatePosition()	
+					--insert new stop
+					private.active_positions[name_position_one_long].make_new_stop(stop_price)
+					private.main_writer.WriteToEndOfFile({mes="Long ONE by MANUALY Enter price = "..tostring(private.active_positions[name_position_one_long].get_enter_price())..
+							"; Stop = "..tostring(private.active_positions[name_position_one_long].get_stoploss_price()).."; "..
+							"; Take = "..tostring(private.active_positions[name_position_one_long].get_takeprofit_price())})
+					-------------------------------------------
+				else
+					message("Can not open first long position, because it was opened!")					
+				end
+			else
+				message("Can not open first long position, because short side!")
+			end
+		end
+				
+		if (private.strategy_table.get_open_second_long_position_pressed() == true)then
+			--message("Open second long position")
+			if (signal_check.long_side == true) then
+			--calculate stop
+				--indicator = _indicator,
+				if (signal_check.indicator.close > signal_check.bar.close) then
+					
+					stop_price = (signal_check.last_price - (2 * (signal_check.bar.high - signal_check.bar.low)))
+				else
+					stop_price = signal_check.indicator.close
+				end					
+				
+				--Position LONG two take 145steps-----------------------
+				name_position_two_long = "long_position_145"
+				local is_position_long_two = false
+				for key, value in pairs(private.active_positions) do						
+					if (key == name_position_two_long) then is_position_long_two = true end
+				end
+				if (is_position_long_two == false) then
+					--if not active long position open it
+					private.main_writer.WriteToEndOfFile({mes="Long position_TWO by MANUALY 145 not in active dictionary. Set it. Set new last_min"})
+					--------------------------------------------
+					private.active_positions[name_position_two_long] = private_func.create_long_reverse_position145()
+					private.main_writer.WriteToEndOfFile({mes="Create Long TWO  by MANUALY position N: "..tostring(private.active_positions[name_position_two_long].get_id_position())})
+					private.active_positions[name_position_two_long].ActivatePosition()	
+					--insert new stop
+					private.active_positions[name_position_two_long].make_new_stop(stop_price)
+					private.main_writer.WriteToEndOfFile({mes="Long TWO  by MANUALY Enter price = "..tostring(private.active_positions[name_position_two_long].get_enter_price())..
+							"; Stop = "..tostring(private.active_positions[name_position_two_long].get_stoploss_price()).."; "..
+							"; Take = "..tostring(private.active_positions[name_position_two_long].get_takeprofit_price())})
+					-------------------------------------------
+				else
+					message("Can not open second long position, because it was opened!")					
+				end		
+				---------------------------------------------------------
+			else
+				message("Can not open second long position, because short side!")
+			end	
+		end
+
+		if (private.strategy_table.get_open_third_long_position_pressed() == true)then
+			--message("Open third long position")	
+			if (signal_check.long_side == true) then
+			--calculate stop
+				--indicator = _indicator,
+				if (signal_check.indicator.close > signal_check.bar.close) then
+					
+					stop_price = (signal_check.last_price - (2 * (signal_check.bar.high - signal_check.bar.low)))
+				else
+					stop_price = signal_check.indicator.close
+				end					
+				
+				--Position LONG three take 500steps-----------------------
+				name_position_three_long = "long_position_500"
+				local is_position_long_three = false
+				for key, value in pairs(private.active_positions) do						
+					if (key == name_position_three_long) then is_position_long_three = true end
+				end
+				if (is_position_long_three == false) then
+					--if not active long position open it
+					private.main_writer.WriteToEndOfFile({mes="Long position_THREE 500 by MANUALY not in active dictionary. Set it. Set new last_min"})
+					--------------------------------------------
+					private.active_positions[name_position_three_long] = private_func.create_long_reverse_position500()
+					private.main_writer.WriteToEndOfFile({mes="Create Long THREE by MANUALY position N: "..tostring(private.active_positions[name_position_three_long].get_id_position())})
+					private.active_positions[name_position_three_long].ActivatePosition()	
+					--insert new stop
+					private.active_positions[name_position_three_long].make_new_stop(stop_price)
+					private.main_writer.WriteToEndOfFile({mes="Long THREE by MANUALY Enter price = "..tostring(private.active_positions[name_position_three_long].get_enter_price())..
+							"; Stop = "..tostring(private.active_positions[name_position_three_long].get_stoploss_price()).."; "..
+							"; Take = "..tostring(private.active_positions[name_position_three_long].get_takeprofit_price())})
+					-------------------------------------------						
+				else
+					message("Can not open third long position, because it was opened!")
+				end		
+				---------------------------------------------------------
+			else
+				message("Can not open third long position, because short side!")
+			end	
+		end
+
+
+		if (private.strategy_table.get_open_first_short_position_pressed() == true)then
+			--message("Open first short position")
+			if (signal_check.long_side == false) then
+			--calculate stop
+				--indicator = _indicator,
+				if (signal_check.indicator.close < signal_check.bar.close) then
+					
+					stop_price = (signal_check.last_price + (2 * (signal_check.bar.high - signal_check.bar.low)))
+				else
+					stop_price = signal_check.indicator.close
+				end					
+				
+				--Position one take 60steps-----------------------
+				name_position_one_short = "short_position_one"
+				local is_position_short_one_short = false
+				for key, value in pairs(private.active_positions) do				
+					if (key == name_position_one_short) then is_position_short_one_short = true end
+				end
+				if (is_position_short_one_short == false) then
+					--if not active long position open it
+					private.main_writer.WriteToEndOfFile({mes="Short position not in active dictionary. Set it. Set new last_max".."\n"})
+					--------------------------------------------
+					private.active_positions[name_position_one_short] = private_func.create_short_reverse_position()
+					private.main_writer.WriteToEndOfFile({mes="Create Short position N: "..tostring(private.active_positions[name_position_one_short].get_id_position())})
+					private.active_positions[name_position_one_short].ActivatePosition()	
+					--inser new stop						
+					private.active_positions[name_position_one_short].make_new_stop(stop_price)
+					private.main_writer.WriteToEndOfFile({mes="Short Enter price = "..tostring(private.active_positions[name_position_one_short].get_enter_price())..
+													"; Stop = "..tostring(private.active_positions[name_position_one_short].get_stoploss_price()).."; "..
+													"; Take = "..tostring(private.active_positions[name_position_one_short].get_takeprofit_price())..";\n"})
+					-----------------------------------------------						
+				else
+					message("Can not open first short position, because it was opened!")
+				end		
+				---------------------------------------------------------
+			else
+				message("Can not open first short position, because long side!")
+			end			
+		end
+		
+		if (private.strategy_table.get_open_second_short_position_pressed() == true)then
+			--message("Open second short position")
+			if (signal_check.long_side == false) then
+			--calculate stop
+				--indicator = _indicator,
+				if (signal_check.indicator.close < signal_check.bar.close) then
+					
+					stop_price = (signal_check.last_price + (2 * (signal_check.bar.high - signal_check.bar.low)))
+				else
+					stop_price = signal_check.indicator.close
+				end					
+				
+				--Position two take 145steps-----------------------
+				name_position_two_short = "short_position_145"
+				local is_position_short_two_short = false
+				for key, value in pairs(private.active_positions) do						
+					if (key == name_position_two_short) then is_position_short_two_short = true end
+				end
+				if (is_position_short_two_short == false) then
+					--if not active long position open it
+					private.main_writer.WriteToEndOfFile({mes="Short position_TWO 145 not in active dictionary. Set it. Set new last_min".."\n"})
+					--------------------------------------------
+					private.active_positions[name_position_two_short] = private_func.create_short_reverse_position145()
+					private.main_writer.WriteToEndOfFile({mes="Create Short TWO 145 position N: "..tostring(private.active_positions[name_position_two_short].get_id_position()).."\n"})
+					private.active_positions[name_position_two_short].ActivatePosition()	
+					--insert new stop
+					private.active_positions[name_position_two_short].make_new_stop(stop_price)
+					private.main_writer.WriteToEndOfFile({mes="Short TWO 145 Enter price = "..tostring(private.active_positions[name_position_two_short].get_enter_price())..
+							"; Stop = "..tostring(private.active_positions[name_position_two_short].get_stoploss_price()).."; "..
+							"; Take = "..tostring(private.active_positions[name_position_two_short].get_takeprofit_price())..";\n"})
+					-------------------------------------------							
+				else
+					message("Can not open second short position, because it was opened!")
+				end		
+				---------------------------------------------------------
+			else
+				message("Can not open second short position, because long side!")
+			end				
+		end
+
+		if (private.strategy_table.get_open_third_short_position_pressed() == true)then
+			--message("Open third short position")
+			if (signal_check.long_side == false) then
+			--calculate stop
+				--indicator = _indicator,
+				if (signal_check.indicator.close < signal_check.bar.close) then
+					
+					stop_price = (signal_check.last_price + (2 * (signal_check.bar.high - signal_check.bar.low)))
+				else
+					stop_price = signal_check.indicator.close
+				end					
+				
+				--Position two take 500steps-----------------------
+				name_position_three_short = "short_position_500"
+				local is_position_short_three_short = false
+				for key, value in pairs(private.active_positions) do						
+					if (key == name_position_three_short) then is_position_short_three_short = true end
+				end
+				if (is_position_short_three_short == false) then
+					--if not active long position open it
+					private.main_writer.WriteToEndOfFile({mes="Short position_THREE 500 by MANUALLY not in active dictionary. Set it. Set new last_min".."\n"})
+					--------------------------------------------
+					private.active_positions[name_position_three_short] = private_func.create_short_reverse_position500()
+					private.main_writer.WriteToEndOfFile({mes="Create Short THREE 500 by MANUALLY position N: "..tostring(private.active_positions[name_position_three_short].get_id_position()).."\n"})
+					private.active_positions[name_position_three_short].ActivatePosition()	
+					--insert new stop
+					private.active_positions[name_position_three_short].make_new_stop(stop_price)
+					private.main_writer.WriteToEndOfFile({mes="Short THREE 500 by MANUALLY Enter price = "..tostring(private.active_positions[name_position_three_short].get_enter_price())..
+							"; Stop = "..tostring(private.active_positions[name_position_three_short].get_stoploss_price()).."; "..
+							"; Take = "..tostring(private.active_positions[name_position_three_short].get_takeprofit_price())..";\n"})
+					-------------------------------------------					
+				else
+					message("Can not open third short position, because it was opened!")
+				end		
+				---------------------------------------------------------
+			else
+				message("Can not open third short position, because long side!")
+			end		
+		end			
+		
+		--проверяю позицию на наличие нажатой клавиши
+		for key, value in pairs(private.active_positions) do
+			--private.main_writer.WriteToEndOfFile({mes="Make new stop: "..tostring(signal_check.indicator.close).."\n"})
+			--value.make_new_stop(signal_check.indicator.close)			
+				
+			if (key == "long_position_one" and private.strategy_table.get_close_first_long_position_pressed() == true)then
+				--message("Close first long position")	
+				--принудительно закрываю позицию
+				value.turn_off_position()
+			end			
+			
+			if (key == "long_position_145" and private.strategy_table.get_close_second_long_position_pressed() == true)then
+				--message("Close second long position")
+				--принудительно закрываю позицию
+				value.turn_off_position()				
+			end	
+			
+			if (key == "long_position_500" and private.strategy_table.get_close_third_long_position_pressed() == true)then
+				--message("Close third long position")
+				--принудительно закрываю позицию
+				value.turn_off_position()		
+			end
+			
+			if (key == "short_position_one" and private.strategy_table.get_close_first_short_position_pressed() == true)then
+				--message("Close first short position")
+
+				--принудительно закрываю позицию
+				value.turn_off_position()	
+			end
+			
+			if (key == "short_position_145" and private.strategy_table.get_close_second_short_position_pressed() == true)then
+				--message("Close second short position")
+				--принудительно закрываю позицию
+				value.turn_off_position()	
+			end
+			
+			if (key == "short_position_500" and private.strategy_table.get_close_third_short_position_pressed() == true)then
+				--message("Close third short position")
+				--принудительно закрываю позицию
+				value.turn_off_position()					
+			end				
+		end
+
+		private.strategy_table.turn_off_open_first_long_position_pressed()
+		private.strategy_table.turn_off_close_first_long_position_pressed()
+		private.strategy_table.turn_off_open_second_long_position_pressed()	
+		private.strategy_table.turn_off_close_second_long_position_pressed()
+		private.strategy_table.turn_off_open_third_long_position_pressed()	
+		private.strategy_table.turn_off_close_third_long_position_pressed()
+		private.strategy_table.turn_off_open_first_short_position_pressed()	
+		private.strategy_table.turn_off_close_first_short_position_pressed()
+		private.strategy_table.turn_off_open_second_short_position_pressed()
+		private.strategy_table.turn_off_close_second_short_position_pressed()
+		private.strategy_table.turn_off_open_third_short_position_pressed()	
+		private.strategy_table.turn_off_close_third_short_position_pressed()
+				
+		
+		
 		--check response of transaction every position and start main loop of position
 		for key, value in pairs(private.active_positions) do			
 			value.full_check_manager({
@@ -856,15 +1333,10 @@ function Startegy_parabolic:new(strategyTable)
 			value.main_loop_position()
 			--private.main_writer.WriteToEndOfFile({mes="...".."\n"})
 		end
-		
+
 		private_func.fill_startegy_table({signal_check = signal_check})
 		
 		is_run = private.strategy_table.actionOnTable()
-		
-		if (private.strategy_table.get_13_cell() == true)then
-			message("Pressed 13 cell")
-			private.strategy_table.turn_off_13_cell()
-		end
 		
 		
 		--SetCell(private.idTradeTable.getAllocTable(), self.column, self.row, tostring(self.mes))

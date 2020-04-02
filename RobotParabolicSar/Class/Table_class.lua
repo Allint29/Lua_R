@@ -58,7 +58,9 @@ function RobotTable:new(sIdTable, sName, nRow)
 			--message(self[i],1)
 			local width = 20
 			if (i==1) then width=30 end
-			if (i==#self) then width=30 end
+			if (i==3) then width=30 end
+			if (i==#self-1) then width=15 end
+			if (i==#self) then width=15 end
 			AddColumn(newTable,i,self[i], true, QTABLE_STRING_TYPE, width)
 			private.listColumns[i]=self[i]
 		end
@@ -88,7 +90,7 @@ function RobotTable:new(sIdTable, sName, nRow)
 			end	
 		end	
 						
-		SetWindowPos(newTable, 700, 50, 500, 500);  --create new winow (name table, X, Y, width, high)
+		SetWindowPos(newTable, 500, 50, 800, 500);  --create new winow (name table, X, Y, width, high)
 		SetWindowCaption(newTable, private.name); -- Caption of table
 		
 		--fill cells, that not depend from robot		
@@ -156,13 +158,112 @@ function RobotTable:new(sIdTable, sName, nRow)
 	--переменные управления
 	private.test_message = "Robot is working!"
 	
-	--press 13 row cell1
-	private.cell_13_press = false	
-	function public:get_13_cell()
-		return private.cell_13_press
+	--press open long position 1
+	private.open_first_long_position_pressed = false	
+	function public:get_open_first_long_position_pressed()
+		return private.open_first_long_position_pressed
 	end
-	function public:turn_off_13_cell()
-		private.cell_13_press = false
+	function public:turn_off_open_first_long_position_pressed()
+		private.open_first_long_position_pressed = false
+	end
+	
+	--press close long position 1
+	private.close_first_long_position_pressed = false	
+	function public:get_close_first_long_position_pressed()
+		return private.close_first_long_position_pressed
+	end
+	function public:turn_off_close_first_long_position_pressed()
+		private.close_first_long_position_pressed = false
+	end
+	
+	--press open long position 2
+	private.open_second_long_position_pressed = false	
+	function public:get_open_second_long_position_pressed()
+		return private.open_second_long_position_pressed
+	end
+	function public:turn_off_open_second_long_position_pressed()
+		private.open_second_long_position_pressed = false
+	end	
+	
+	--press close long position 2
+	private.close_second_long_position_pressed = false	
+	function public:get_close_second_long_position_pressed()
+		return private.close_second_long_position_pressed
+	end
+	function public:turn_off_close_second_long_position_pressed()
+		private.close_second_long_position_pressed = false
+	end
+	
+	--press open long position 3
+	private.open_third_long_position_pressed = false	
+	function public:get_open_third_long_position_pressed()
+		return private.open_third_long_position_pressed
+	end
+	function public:turn_off_open_third_long_position_pressed()
+		private.open_third_long_position_pressed = false
+	end	
+	
+	--press close long position 3
+	private.close_third_long_position_pressed = false	
+	function public:get_close_third_long_position_pressed()
+		return private.close_third_long_position_pressed
+	end
+	function public:turn_off_close_third_long_position_pressed()
+		private.close_third_long_position_pressed = false
+	end
+	
+	--press open short position 1
+	private.open_first_short_position_pressed = false	
+	function public:get_open_first_short_position_pressed()
+		return private.open_first_short_position_pressed
+	end
+	function public:turn_off_open_first_short_position_pressed()
+		private.open_first_short_position_pressed = false
+	end
+	
+	--press close short position 1
+	private.close_first_short_position_pressed = false	
+	function public:get_close_first_short_position_pressed()
+		return private.close_first_short_position_pressed
+	end
+	function public:turn_off_close_first_short_position_pressed()
+		private.close_first_short_position_pressed = false
+	end
+	
+	--press open short position 2
+	private.open_second_short_position_pressed = false	
+	function public:get_open_second_short_position_pressed()
+		return private.open_second_short_position_pressed
+	end
+	function public:turn_off_open_second_short_position_pressed()
+		private.open_second_short_position_pressed = false
+	end	
+	
+	--press close short position 2
+	private.close_second_short_position_pressed = false	
+	function public:get_close_second_short_position_pressed()
+		return private.close_second_short_position_pressed
+	end
+	function public:turn_off_close_second_short_position_pressed()
+		private.close_second_short_position_pressed = false
+	end
+
+	--press open short position 3
+	private.open_third_short_position_pressed = false	
+	function public:get_open_third_short_position_pressed()
+		return private.open_third_short_position_pressed
+	end
+	function public:turn_off_open_third_short_position_pressed()
+		private.open_third_short_position_pressed = false
+	end	
+	
+	--press close short position 3
+	private.close_third_short_position_pressed = false	
+	function public:get_close_third_short_position_pressed()
+		return private.close_third_short_position_pressed
+	end
+	function public:turn_off_close_third_short_position_pressed()
+		private.close_third_short_position_pressed = false
 	end
 	
 	private.func_on_cell = function(table_id2, msg, X, Y)
@@ -181,10 +282,44 @@ function RobotTable:new(sIdTable, sName, nRow)
 				message(_mes, 1)
 				private.messages[#private.messages+1] = _mes
 				private.stopMainLoop = false
-			elseif(X==13 and Y==1)then				
-			--button of stop
-				private.cell_13_press = true
-			end			
+			elseif(X==9 and Y==4)then				
+			--press open long position 1
+				private.open_first_long_position_pressed = true
+			elseif(X==9 and Y==5)then				
+			--press close long position 1
+				private.close_first_long_position_pressed = true
+			elseif(X==11 and Y==4)then				
+			--press open long position 2
+				private.open_second_long_position_pressed = true
+			elseif(X==11 and Y==5)then				
+			--press close long position 2
+				private.close_second_long_position_pressed = true				
+			elseif(X==13 and Y==4)then				
+			--press open long position 3
+				private.open_third_long_position_pressed = true
+			elseif(X==13 and Y==5)then				
+			--press close long position 3
+				private.close_third_long_position_pressed = true	
+			elseif(X==15 and Y==4)then				
+			--press open short position 1
+				private.open_first_short_position_pressed = true
+			elseif(X==15 and Y==5)then				
+			--press close short position 1
+				private.close_first_short_position_pressed = true	
+			elseif(X==17 and Y==4)then				
+			--press open short position 2
+				private.open_second_short_position_pressed = true
+			elseif(X==17 and Y==5)then				
+			--press close short position 2
+				private.close_second_short_position_pressed = true	
+			elseif(X==19 and Y==4)then				
+			--press open short position 3
+				private.open_third_short_position_pressed = true
+			elseif(X==19 and Y==5)then				
+			--press close short position 3
+				private.close_third_short_position_pressed = true	
+			end
+			
 		end	
 		
 	end

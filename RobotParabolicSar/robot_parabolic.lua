@@ -40,7 +40,7 @@ function OnInit()
 	
 	--create table of robot
 	TableSar = RobotTable:new("TableID2",MainStrategy.get_id_strategy(), 20)	
-	TableSar.initColumnTable({"Parametrs", "Values", "Comments"})
+	TableSar.initColumnTable({"Parametrs", "Values", "Comments", "Control_OP", "Control_CP"})
 	TableSar.putMainData({"qwerty", "second"})
 	
 	--set main writer to robot
